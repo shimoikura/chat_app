@@ -4,7 +4,7 @@ use Cake\ORM\Table;
 use Cake\ORM\Query;
 use Cake\Validation\Validator;
 
-class Contents extends Table{
+class ContentsTable extends Table{
   public function initialize(array $config){
     parent::initialize($config);
     $this->setTable('contents');
@@ -24,6 +24,7 @@ class Contents extends Table{
     $validator
           ->integer('favo')
           ->allowEmpty('favo','create');
+    return $validator;
   }
 }
  ?>
