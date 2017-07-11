@@ -19,7 +19,7 @@
       <div class="content-box col-md-6">
         <p><?php echo $value['username']; ?></p>
         <p><?php echo $value['body']; ?></p>
-        <p><?php echo $value['favo']; ?></p>
+        <p><?php echo $value['favo']; ?><span class="glyphicon glyphicon-heart"></span></p>
         <p><?php echo $value['created']; ?></p>
       </div>
     </div>
