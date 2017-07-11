@@ -1,0 +1,25 @@
+/*-------------Login-login.ctp-------------*/
+
+.form-signin{
+  max-width:350px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: orange;
+}
+.form-signin input[type="text"]{
+  width: 100%;
+}
+.form-signin input[type='submit']{
+  width: 100%;
+  margin-top: 5px;
+}
+/*----------------UserRegister-register.ctp------------*/
+.form-user-register{
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 10px;
+}
+.form-user-register input[type='text'],
+.form-user-register input[type='email']{
+  width: 100%;
+}
