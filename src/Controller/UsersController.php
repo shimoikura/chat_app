@@ -33,7 +33,7 @@ class UsersController extends AppController{
         //   $this->redirect('/'.$target);
         // }
         // else{
-        // $this->redirect('/');
+        $this->redirect('/');
         // }
       }
       else {
