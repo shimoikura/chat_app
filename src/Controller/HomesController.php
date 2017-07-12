@@ -43,6 +43,7 @@ class HomesController extends AppController
         ));
       }
     }
+    rsort($allcontents);
     // echo "<pre>";
     // print_r($allcontents);
     // exit();
