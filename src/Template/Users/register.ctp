@@ -1,6 +1,6 @@
 <h1>Register</h1>
 <div class="container box-register">
-  <?php echo $this->Form->create($yoshiki,array('class'=>"form-user-register")); ?>
+  <?php echo $this->Form->create($user,array('class'=>"form-user-register")); ?>
     <h2>Registration</h2>
     <table>
       <tr>

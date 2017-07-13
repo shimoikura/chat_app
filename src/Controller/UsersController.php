@@ -18,7 +18,6 @@ class UsersController extends AppController{
       // $targetArray = ['carts','ships','register'];
 
       $user = $this->Auth->identify();
-      print_r($this->request->data);
       if ($user) {
         $this->Auth->setUser($user);
         $this->Users->id = $this->Auth->user("id"); //ユニークなidをセーブする
@@ -60,8 +59,8 @@ class UsersController extends AppController{
       }
     }
     else {
-      echo "data did not come";
     }
+    $this->set('user',$user);
   }
 
   public function addfriends(){
