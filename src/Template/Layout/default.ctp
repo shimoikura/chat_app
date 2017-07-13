@@ -46,11 +46,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="navbar-header">
 			     <ul class="nav navbar-nav">
 				      <li><?php echo $this->Html->link("HOME",'/'); ?></li>
-              <li><?php echo $this->Html->link("Add Friends",'/addfriends'); ?></li>
 			     </ul>
 		    </div>
-        <div class="navbar-right" id="navbarEexample9">
+        <div class="navbar-right">
           <p class="navbar-text">ようこそ</p>
+          <ul class="nav navbar-nav">
+            <li><?php echo $this->Html->link("Add Friends",'/addfriends'); ?></li>
+            <li><?php echo $this->Html->link("Notice",'/notice'); ?></li>
+          </ul>
         </div>
       </div>
     </nav>
