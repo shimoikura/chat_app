@@ -71,6 +71,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <!-- <p>New customer? <a href="registration.php">Start here</a></p>
       <p><a href="index.php">HOME</a></p> -->
   </div> <!-- /container -->
+
     <footer>
     </footer>
 </body>
