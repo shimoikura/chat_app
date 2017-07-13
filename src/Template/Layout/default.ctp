@@ -46,6 +46,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="navbar-header">
 			     <ul class="nav navbar-nav">
 				      <li><?php echo $this->Html->link("HOME",'/'); ?></li>
+              <li><?php echo $this->Html->link("Add Friends",'/addfriends'); ?></li>
 			     </ul>
 		    </div>
         <div class="navbar-right" id="navbarEexample9">
