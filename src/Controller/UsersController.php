@@ -8,7 +8,7 @@ class UsersController extends AppController{
 
   public function beforeFilter(Event $event){
     parent::beforeFilter($event);
-    $this->Auth->allow(['login','register']);
+    $this->Auth->allow(['login','register','addfriends']);
   }
 
   public function login(){
@@ -60,6 +60,49 @@ class UsersController extends AppController{
     }
     else {
       echo "data did not come";
+    }
+  }
+
+  public function addfriends(){
+    $this->request->session();
+    $userid = $this->request->session()->read("userid");
+    if ($userid == null) {
+      $this->redirect(["controller"=>"users",'action'=>'login']);
+    }
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // 自分以外のuserをVIEW表示する
+    $users = $this->Users->find()
+                            ->where(['id IS NOT' => $userid])
+                            ->all();
+    $this->set("users",$users);
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // F_requestsTableへinsert
+    $this->loadModel("F_requests");
+    if ($this->request->is('POST')) {
+      $senderid =  $this->request->data['senderId'];
+      $receiverid =  $this->request->data['receiverId'];
+      $f_requests = $this->F_requests->find()
+                                    ->where(['senderId IS' => $senderid])
+                                    ->where(['receiverId IS' => $receiverid])
+                                    ->all();
+      if (count($f_requests) == 0) //requestがまだ送られていない場合
+      {
+        echo "ok";
+        $f_request = $this->F_requests->newEntity();
+        $f_request = $this->F_requests->patchEntity($f_request,$this->request->getData());
+        if ($this->F_requests->save($f_request)) {
+          $this->Flash->success("Your addfriend request is successfully send.");
+        }
+        else {
+          $this->Flash->error("Your addfriend request is not send.....try again!");
+        }
+      }
+      else {
+        echo "no";
+      }
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     }
   }
 }
