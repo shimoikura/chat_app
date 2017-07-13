@@ -41,6 +41,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body>
+  <?php $this->request->session(); ?>
+  <?php $f_req_num = $this->request->session()->read("f_req_num"); ?>
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
@@ -52,7 +54,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <p class="navbar-text">ようこそ</p>
           <ul class="nav navbar-nav">
             <li><?php echo $this->Html->link("Add Friends",'/addfriends'); ?></li>
-            <li><?php echo $this->Html->link("Notice",'/notice'); ?></li>
+            <li><?php echo $this->Html->link("Notice",'/notice'); ?><span><?php echo $f_req_num; ?></span></li>
           </ul>
         </div>
       </div>

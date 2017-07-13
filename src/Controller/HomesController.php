@@ -7,7 +7,7 @@ class HomesController extends AppController
 {
   public function beforeFilter(Event $event){
     parent::beforeFilter($event);
-    $this->Auth->allow(['index','mypost']);
+    $this->Auth->allow(['index','mypost','notice']);
   }
 
   public function index()
@@ -48,6 +48,16 @@ class HomesController extends AppController
     // print_r($allcontents);
     // exit();
     $this->set('contents',$allcontents);
+
+
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // count of Freindsrequests
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    $this->loadModel("F_requests");
+    $notices = $this->F_requests->find()
+                                    ->where(['receiverId IS' => $userid])
+                                    ->all();
+    $this->request->session()->write("f_req_num",count($notices));
   }
 
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
