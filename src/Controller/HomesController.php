@@ -7,7 +7,7 @@ class HomesController extends AppController
 {
   public function beforeFilter(Event $event){
     parent::beforeFilter($event);
-    $this->Auth->allow(['index']);
+    $this->Auth->allow(['index','mypost']);
   }
 
   public function index()
@@ -48,6 +48,22 @@ class HomesController extends AppController
     // print_r($allcontents);
     // exit();
     $this->set('contents',$allcontents);
+  }
+
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  // Myself Post
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  public function mypost(){
+    $this->request->session();
+    $userid = $this->request->session()->read('userid');
+    if ($userid == null) {
+      return $this->redirect(['controller'=>'Users','action'=>'login']);
+    }
+
+    $this->loadModel('Contents');
+    $query = $this->Contents->find()->where(['userId'=>$userid]);
+    $contents = $query->toArray();
+    $this->set('contents',$contents);
   }
 }
  ?>
