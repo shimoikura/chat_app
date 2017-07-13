@@ -12,6 +12,7 @@ class UsersController extends AppController{
   }
 
   public function login(){
+    $this->viewBuilder()->setLayout("login");
     if ($this->request->is("POST")) {
       // $target= $this->request->data['targetPage'];
       // $targetArray = ['carts','ships','register'];
