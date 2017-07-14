@@ -117,14 +117,16 @@ class UsersController extends AppController{
         $query = $this->F_requests->query();
         $query->update()
                   ->set(['status'=>1])
-                  ->where(['senderId'=> $senderid],['receiverId'=>$userid])
+                  ->where(['senderId'=> $senderid])
+                  ->where(['receiverId'=>$userid])
                   ->execute();
         $this->redirect('/notice');
       }
       else {
         $query = $this->F_requests->query();
         $query->delete()
-                  ->where(['senderId'=> $senderid],['receiverId'=>$userid])
+                  ->where(['senderId'=> $senderid])
+                  ->where(['receiverId'=>$userid])
                   ->execute();
         $this->redirect('/notice');
       }
