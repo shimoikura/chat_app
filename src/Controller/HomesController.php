@@ -57,9 +57,11 @@ class HomesController extends AppController
     $this->request->session()->write("f_req_num",count($notices));
   }
 
-  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  // Myself Post
-  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// Myself Post
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   public function mypost(){
     $this->request->session();
     $userid = $this->request->session()->read('userid');
@@ -74,10 +76,19 @@ class HomesController extends AppController
     $query = $this->Contents->find()->where(['userId'=>$userid]);
     $contents = $query->toArray();
     $this->set('contents',$contents);
+  }
 
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    // Freiend Request
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// Freiend Request
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  public function notice(){
+    $this->request->session();
+    $userid = $this->request->session()->read('userid');
+    if ($userid == null) {
+      return $this->redirect('/login');
+    }
     $this->loadModel('F_requests');
     $query = $this->F_requests->find()
                                   ->where(['receiverId'=>$userid,'status'=>0])

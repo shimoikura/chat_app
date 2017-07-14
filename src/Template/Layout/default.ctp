@@ -55,7 +55,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <p class="navbar-text"><?php echo $f_req_num; ?></p>
           <ul class="nav navbar-nav">
             <li><a href="<?php echo $this->Url->build('/mypage'); ?>" data-toggle="mypage" title="MY PAGE"><span class="glyphicon glyphicon-user"></span></a></li>
-            <li><span class="glyphicon glyphicon-bell navbar-text" id="btn-notice" data-toggle="notice" title="NOTICE"></span></li>
+            <li><a href="<?php echo $this->Url->build('/notice'); ?>" data-toggle="notice" title="NOTICE"><span class="glyphicon glyphicon-bell"></span></a></li>
             <li><a href="<?php echo $this->Url->build('/login'); ?>" data-toggle="login" title="LOGIN"><span class="glyphicon glyphicon-log-in"></span></a></li>
             <li><a href="<?php echo $this->Url->build('/addfriends'); ?>" data-toggle="addfriends" title="SERCH FRIENDS"><span class="glyphicon glyphicon-zoom-in"></span></a></li>
           </ul>
