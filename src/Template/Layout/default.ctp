@@ -52,16 +52,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 			     </ul>
 		    </div>
         <div class="navbar-right">
-          <p class="navbar-text">Hello <span><?php echo $username; ?></span></p>
           <p class="navbar-text"><?php echo $f_req_num; ?></p>
           <ul class="nav navbar-nav">
+            <li class="dropdown" role="menu">
+              <a href="" class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>Hello <span><?php echo $username; ?></span><span class='caret'></span></a>
+              <ul class='dropdown-menu' role='menu'>
+                <li><a href=" <?php echo $this->Url->build('/logout',true); ?> ">LOGOUT</a></li>
+                <li><a href=" <?php echo $this->Url->build('/login',true); ?> ">Login as another account</a></li>
+              </ul>
+            </li>
             <li><a href="<?php echo $this->Url->build('/mypage'); ?>" data-toggle="mypage" title="MY PAGE"><span class="glyphicon glyphicon-user"></span></a></li>
             <li><a href="<?php echo $this->Url->build('/notice'); ?>" data-toggle="notice" title="NOTICE"><span class="glyphicon glyphicon-bell"></span></a></li>
-            <?php if (! isset($userid)) {
-              echo "<li><a href='".$this->Url->build('/logout')."' data-toggle='logout' title='LOGOUT'><span class='glyphicon glyphicon-log-out'></span></a></li>";
-            } else {
-              echo "<li><a href='".$this->Url->build('/login')."' data-toggle='login' title='LOGIN'><span class='glyphicon glyphicon-log-in'></span></a></li>";
-            }?>
             <li><a href="<?php echo $this->Url->build('/addfriends'); ?>" data-toggle="addfriends" title="SERCH FRIENDS"><span class="glyphicon glyphicon-zoom-in"></span></a></li>
           </ul>
         </div>
