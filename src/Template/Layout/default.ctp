@@ -55,13 +55,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <p class="navbar-text"><?php echo $f_req_num; ?></p>
           <ul class="nav navbar-nav">
             <li class="dropdown" role="menu">
-              <a href="" class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>Hello <span><?php echo $username; ?></span><span class='caret'></span></a>
+              <a href="" class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'><span class="glyphicon glyphicon-user"></span> <span><?php echo $username; ?></span><span class='caret'></span></a>
               <ul class='dropdown-menu' role='menu'>
+                <li><a href="<?php echo $this->Url->build('/mypage'); ?>">MY PAGE</a></li>
                 <li><a href=" <?php echo $this->Url->build('/logout',true); ?> ">LOGOUT</a></li>
                 <li><a href=" <?php echo $this->Url->build('/login',true); ?> ">Login as another account</a></li>
               </ul>
             </li>
-            <li><a href="<?php echo $this->Url->build('/mypage'); ?>" data-toggle="mypage" title="MY PAGE"><span class="glyphicon glyphicon-user"></span></a></li>
             <li><a href="<?php echo $this->Url->build('/notice'); ?>" data-toggle="notice" title="NOTICE"><span class="glyphicon glyphicon-bell"></span></a></li>
             <li><a href="<?php echo $this->Url->build('/addfriends'); ?>" data-toggle="addfriends" title="SERCH FRIENDS"><span class="glyphicon glyphicon-zoom-in"></span></a></li>
           </ul>
