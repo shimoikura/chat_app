@@ -128,6 +128,15 @@ class UsersController extends AppController{
                   ->execute();
         $this->redirect('/notice');
       }
+
+          // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          // count of Freindsrequests(Notice) SESSION
+          // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          $this->loadModel("F_requests");
+          $notices = $this->F_requests->find()
+                                          ->where(['receiverId IS' => $userid,'status'=>0])
+                                          ->all();
+          $this->request->session()->write("f_req_num",count($notices));
     }
     else {
       $this->redirect("/");
