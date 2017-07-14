@@ -8,7 +8,7 @@ class UsersController extends AppController{
 
   public function beforeFilter(Event $event){
     parent::beforeFilter($event);
-    $this->Auth->allow(['login','register','addfriends']);
+    $this->Auth->allow(['login','register','addfriends','frequest']);
   }
 
   public function login(){
@@ -103,6 +103,34 @@ class UsersController extends AppController{
         echo "no";
       }
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    }
+  }
+
+  public function frequest(){
+    $this->auotRender = false;
+    $this->request->session();
+    $userid = $this->request->session()->read("userid");
+    $this->loadModel("F_requests");
+    if ($this->request->is('POST')) {
+      $senderid =  $this->request->data['senderId'];
+      if (isset($this->request->data['confirm']) && $this->request->data['confirm']) {
+        $query = $this->F_requests->query();
+        $query->update()
+                  ->set(['status'=>1])
+                  ->where(['senderId'=> $senderid],['receiverId'=>$userid])
+                  ->execute();
+        $this->redirect('/notice');
+      }
+      else {
+        $query = $this->F_requests->query();
+        $query->delete()
+                  ->where(['senderId'=> $senderid],['receiverId'=>$userid])
+                  ->execute();
+        $this->redirect('/notice');
+      }
+    }
+    else {
+      $this->redirect("/");
     }
   }
 }

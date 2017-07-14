@@ -1,6 +1,6 @@
 <?php
   foreach ($r_users as $value) {
-    echo $this->Form->create();
+    echo $this->Form->create(null,['url'=>['controller'=>'Users','action'=>'frequest']]);
     echo $value['username'];
     echo $this->Form->input('senderId',['value'=>$value['id'],'type'=>'hidden']);
     echo $this->Form->submit('confirm');
