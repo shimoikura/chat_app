@@ -51,6 +51,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/', ['controller' => 'Homes', 'action' => 'index']);
     $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+    $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
     $routes->connect('/mypage', ['controller' => 'Homes', 'action' => 'mypost']);
     $routes->connect('/addfriends', ['controller' => 'Users', 'action' => 'addfriends']);
     $routes->connect('/notice', ['controller' => 'Homes', 'action' => 'notice']);

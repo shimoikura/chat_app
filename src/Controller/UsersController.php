@@ -8,9 +8,12 @@ class UsersController extends AppController{
 
   public function beforeFilter(Event $event){
     parent::beforeFilter($event);
-    $this->Auth->allow(['login','register','addfriends','frequest']);
+    $this->Auth->allow(['login','logout','register','addfriends','frequest']);
   }
 
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// ログイン機能
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   public function login(){
     $this->viewBuilder()->setLayout('login');
     if ($this->request->is("POST")) {
@@ -46,6 +49,20 @@ class UsersController extends AppController{
     }
   }
 
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// LOGOUT
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  public function logout(){
+    $this->autoRender = false;
+    $this->request->session()->destroy();
+    $this->redirect('/');
+  }
+
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// USER登録
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   public function register(){
     $user = $this->Users->newEntity();
     if ($this->request->is('POST')) {
@@ -61,8 +78,10 @@ class UsersController extends AppController{
     else {
     }
     $this->set('user',$user);
-  }
+}
 
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// Userの検索、Fried Requestの送信     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   public function addfriends(){
     $this->request->session();
     $userid = $this->request->session()->read("userid");
@@ -106,6 +125,9 @@ class UsersController extends AppController{
     }
   }
 
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// 友達リクエストの回答.Response
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   public function frequest(){
     $this->auotRender = false;
     $this->request->session();
