@@ -20,12 +20,19 @@ class HomesController extends AppController
     if ($userid == null) {
       return $this->redirect(['controller'=>'Users','action'=>'login']);
     }
+    // username取得
+    $this->loadModel("Users");
+    $query = $this->Users->find()
+                    ->select('username')
+                    ->where(['id'=>$userid]);
+    $username = $query->toArray();
+    $username = $username[0]['username'];
+    $this->request->session()->write('username',$username);
 
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     // Load Contenstable and Users to Set contents
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     $this->loadModel('Contents');
-    $this->loadModel('Users');
     $contents = $this->paginate($this->Contents);
 
 

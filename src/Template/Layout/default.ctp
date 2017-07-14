@@ -43,6 +43,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
   <?php $this->request->session(); ?>
   <?php $f_req_num = $this->request->session()->read("f_req_num"); ?>
+  <?php $username = $this->request->session()->read("username"); ?>
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
@@ -51,7 +52,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 			     </ul>
 		    </div>
         <div class="navbar-right">
-          <p class="navbar-text">ようこそ</p>
+          <p class="navbar-text">Hllo <span><?php echo $username; ?></span></p>
           <p class="navbar-text"><?php echo $f_req_num; ?></p>
           <ul class="nav navbar-nav">
             <li><a href="<?php echo $this->Url->build('/mypage'); ?>" data-toggle="mypage" title="MY PAGE"><span class="glyphicon glyphicon-user"></span></a></li>
