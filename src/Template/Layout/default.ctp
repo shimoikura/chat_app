@@ -52,9 +52,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 		    </div>
         <div class="navbar-right">
           <p class="navbar-text">ようこそ</p>
+          <p class="navbar-text"><?php echo $f_req_num; ?></p>
           <ul class="nav navbar-nav">
-            <li><?php echo $this->Html->link("Add Friends",'/addfriends'); ?></li>
-            <li><?php echo $this->Html->link("Notice",'/notice'); ?><span><?php echo $f_req_num; ?></span></li>
+            <li><a href="<?php echo $this->Url->build('/mypage'); ?>" data-toggle="mypage" title="MY PAGE"><span class="glyphicon glyphicon-user"></span></a></li>
+            <li><span class="glyphicon glyphicon-bell navbar-text" id="btn-notice" data-toggle="notice" title="NOTICE"></span></li>
+            <li><a href="<?php echo $this->Url->build('/login'); ?>" data-toggle="login" title="LOGIN"><span class="glyphicon glyphicon-log-in"></span></a></li>
+            <li><a href="<?php echo $this->Url->build('/addfriends'); ?>" data-toggle="addfriends" title="SERCH FRIENDS"><span class="glyphicon glyphicon-zoom-in"></span></a></li>
           </ul>
         </div>
       </div>
@@ -65,5 +68,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </div>
     <footer>
     </footer>
+
+
+    <script>
+      $(document).ready(function(){
+        $("#btn-notice").click(function(){
+          $('[data-toggle="mypage"]').tooltip();
+          $('[data-toggle="notice"]').tooltip();
+          $('[data-toggle="login"]').tooltip();
+          $('[data-toggle="addfriends"]').tooltip();
+        });
+      });
+    </script>
 </body>
 </html>
