@@ -23,3 +23,10 @@
 .form-user-register input[type='email']{
   width: 100%;
 }
+
+/*ユーザーページ UserImage*/
+.userImg-box img {
+    border-radius: 100px;
+    -moz-border-image: border-radius: 100px;
+    -webkit-border-image: border-radius: 100px;
+}

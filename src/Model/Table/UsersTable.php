@@ -24,6 +24,9 @@ class UsersTable extends Table{
           ->requirePresence('email','create')
           ->notEmpty('email','create');
     $validator
+          ->varchar('userImg')
+          ->allowEmpty('userImg','create');
+    $validator
           ->requirePresence('password','create')
           ->notEmpty('password','create')
           ->alphaNumeric("password")

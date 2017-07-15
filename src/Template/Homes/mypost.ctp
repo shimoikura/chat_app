@@ -1,14 +1,29 @@
+<div class="container">
+  <div class="row">
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+<!-- My USER INFORMATION -->
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+<div class="col-md-4">
+  <div class="userImg-box">
+    <?php echo $this->Html->image('userImages/default-user-image.png',['width'=>'200px']); ?>
+  </div>
+  <div class="userInfo-box">
+    <h3><?php echo $user[0]['username'] ?></h3>
+  </div>
+  <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+</div>
+
+
 <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 <!-- A content -->
 <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+<div class="content-box col-md-8">
 <?php foreach ($contents as $value) { ?>
-  <div class="container">
-    <div class="row">
-      <div class="content-box col-md-6">
         <p><?php echo $value['body']; ?></p>
         <p><?php echo $value['favo']; ?><span class="glyphicon glyphicon-heart favo" url="<?php echo $this->Url->build(['controller'=>'Contents','action'=>'favo']); ?>" id="<?php echo $value['id'].'favo'; ?>"></span></p>
         <p><?php echo $value['created']; ?></p>
-      </div>
-    </div>
-  </div>
 <?php } ?>
+</div>
+
+  </div>
+</div>
