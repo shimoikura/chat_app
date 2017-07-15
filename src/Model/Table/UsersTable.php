@@ -31,6 +31,9 @@ class UsersTable extends Table{
           ->notEmpty('password','create')
           ->alphaNumeric("password")
           ->lengthBetween("password",[6,12],"please enter only 8 to 12 digit");
+    $validator
+          ->varchar('friends')
+          ->allowEmpty('friends','create');
     return $validator;
   }
 

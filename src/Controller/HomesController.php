@@ -84,7 +84,9 @@ class HomesController extends AppController
                               ->where(['id'=> $userid])
                               ->all();
     $user = $query->toArray();
-    $this->set('user',$user);
+    $friends = explode(",",$user[0]['friends']); //Friendsのidの配列
+    $this->set(compact('user','friends'));
+
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     // Content
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

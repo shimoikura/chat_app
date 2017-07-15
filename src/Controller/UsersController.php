@@ -136,12 +136,38 @@ class UsersController extends AppController{
     if ($this->request->is('POST')) {
       $senderid =  $this->request->data['senderId'];
       if (isset($this->request->data['confirm']) && $this->request->data['confirm']) {
+        // F_requestsTableにインサート（↓要らないのでは？　UserTableへのインサートだけで十分かも）
         $query = $this->F_requests->query();
         $query->update()
                   ->set(['status'=>1])
                   ->where(['senderId'=> $senderid])
                   ->where(['receiverId'=>$userid])
                   ->execute();
+        // UserTableのfriendsにインサート
+            //送られた側のfriends情報取得
+        $query = $this->Users->find()
+                          ->select('friends')
+                          ->where(['id'=>$userid])
+                          ->all();
+        $friends1 = $query->toArray();
+            //送った側のfriends情報取得
+        $query = $this->Users->find()
+                          ->select('friends')
+                          ->where([ 'id' => $senderid ]);
+        $friends2 = $query->toArray();
+           //送られた側のUsersレコード
+        $query = $this->Users->query();
+        $query->update()
+                  ->set([ 'friends' => $friends1[0]['friends'].$senderid.","])
+                  ->where([ 'id' => $userid])
+                  ->execute();
+            //送った側のUsersレコード
+        $query = $this->Users->query();
+        $query->update()
+                  ->set([ 'friends' => $friends2[0]['friends'].$userid.","])
+                  ->where([ 'id' => $senderid])
+                  ->execute();
+
         $this->redirect('/notice');
       }
       else {

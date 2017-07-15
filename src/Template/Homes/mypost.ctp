@@ -9,6 +9,8 @@
   </div>
   <div class="userInfo-box">
     <h3><?php echo $user[0]['username'] ?></h3>
+    <?php $friends_num = count($friends) - 1; ?>
+    <p><?php echo $friends_num; ?></p>
   </div>
   <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
 </div>
