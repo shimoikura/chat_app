@@ -1,3 +1,23 @@
+/*----------------nav-------------------*/
+#li-f_req{
+  position: relative;
+}
+#f-req-num{
+  top: 6px;
+  left:20px;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  color: red;
+  background-color: #efefef;
+  border-radius: 50%;
+-moz-border-radius: 50%;
+-webkit-border-radius: 50%;
+-o-border-radius: 50%;
+-ms-border-radius: 50%;
+text-align: center;
+}
+
 /*-------------Login-login.ctp-------------*/
 
 .form-signin{

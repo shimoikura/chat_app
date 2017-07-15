@@ -52,7 +52,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 			     </ul>
 		    </div>
         <div class="navbar-right">
-          <p class="navbar-text"><?php echo $f_req_num; ?></p>
           <ul class="nav navbar-nav">
             <li class="dropdown" role="menu">
               <a href="" class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'><span class="glyphicon glyphicon-user"></span> <span><?php echo $username; ?></span><span class='caret'></span></a>
@@ -62,7 +61,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <li><a href=" <?php echo $this->Url->build('/login',true); ?> ">Login as another account</a></li>
               </ul>
             </li>
-            <li><a href="<?php echo $this->Url->build('/notice'); ?>" data-toggle="notice" title="NOTICE"><span class="glyphicon glyphicon-bell"></span></a></li>
+            <li id="li-f_req">
+              <a href="<?php echo $this->Url->build('/notice'); ?>" data-toggle="notice" title="NOTICE"><span class="glyphicon glyphicon-bell"></span></a>
+              <span id="f-req-num" style="<?php if($f_req_num ==0){echo 'display:none';} ?>"><?php echo $f_req_num; ?></span>
+            </li>
             <li><a href="<?php echo $this->Url->build('/addfriends'); ?>" data-toggle="addfriends" title="SERCH FRIENDS"><span class="glyphicon glyphicon-zoom-in"></span></a></li>
           </ul>
         </div>
