@@ -5,9 +5,7 @@
     $userid = $this->request->session()->read("userid");
     ?>
     <?php
-// echo "<pre>";
-// print_r($f_requests);
-// exit();
+      //Friendリクエストの状況を確認する関数
       function frequest( $f , $sender , $receiver ){
         foreach ($f as $key) {
           //自分がすでにリクエストを送っている場合
@@ -27,28 +25,28 @@
         }
       }
      ?>
+
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <!-- User Box -->
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <?php foreach ($users as $value) { ?>
       <div class="user-box">
+        <?php
+            if ( frequest($f_requests,$userid,$value['id']) == 'a') {
+              echo $this->Form->submit('CANCEL REQUEST',[ 'name' => 'cancel' ]);
+            }
+            elseif (frequest($f_requests,$userid,$value['id']) == 'b') {
+              continue;
+            }
+            else {
+              echo $this->Form->submit('ADD FRIEND',[ 'name' => 'send' ]);
+            }
+        ?>
         <p><?php echo $value['username']; ?></p>
         <?php echo $this->Form->create(); ?>
         <?php echo $this->Form->input('senderId',['type'=>'hidden','value'=>$userid]); ?>
         <?php echo $this->Form->input('receiverId',['type'=>'hidden','value'=>$value['id']]) ?>
-        <?php
-            if ( frequest($f_requests,$userid,$value['id']) == 'a') {
-              echo 0;
-              echo $this->Form->submit('CANCEL REQUEST',[ 'name' => 'cancel' ]);
-            }
-            elseif (frequest($f_requests,$userid,$value['id']) == 'b') {
-              echo 1;
-            }
-            else {
-              echo 2;
-              echo $this->Form->submit('ADD FRIEND',[ 'name' => 'sent' ]);
-            }
-        ?>
+
         <?php echo $this->Form->end(); ?>
       </div>
     <?php } ?>

@@ -97,7 +97,7 @@ class UsersController extends AppController{
                         ->where([ 'id' => $userid]);
         $friends = $query->toArray();
           if (count($friends) == 0) {
-            $this->Flash->error("Frienda are nothing!");
+            $this->Flash->error("Friends are nothing!");
             $this->set('users',null);
           }
           else {
@@ -129,9 +129,8 @@ class UsersController extends AppController{
                                     ->where(['senderId IS' => $senderid])
                                     ->where(['receiverId IS' => $receiverid])
                                     ->all();
-      if (count($f_requests) == 0) //requestがまだ送られていない場合
-      {
-        echo "ok";
+      //Friendリクエストを送信したとき
+      if (isset($this->request->data['send']) && $this->request->data['send']) {
         $f_request = $this->F_requests->newEntity();
         $f_request = $this->F_requests->patchEntity($f_request,$this->request->getData());
         if ($this->F_requests->save($f_request)) {
@@ -140,6 +139,14 @@ class UsersController extends AppController{
         else {
           $this->Flash->error("Your addfriend request is not send.....try again!");
         }
+      }
+      //Friendリクエストをキャンセルするとき
+      elseif (isset($this->request->data['cancel']) && $this->request->data['cancel']) {
+        $query = $this->F_requests->query();
+        $query->delete()
+                  ->where(['senderId'=> $senderid])
+                  ->where(['receiverId'=>$userid])
+                  ->execute();
       }
       else {
         echo "no";
@@ -158,14 +165,8 @@ class UsersController extends AppController{
     $this->loadModel("F_requests");
     if ($this->request->is('POST')) {
       $senderid =  $this->request->data['senderId'];
+    //Friendリクエストを許可するとき
       if (isset($this->request->data['confirm']) && $this->request->data['confirm']) {
-        // F_requestsTableにインサート（↓要らないのでは？　UserTableへのインサートだけで十分かも）
-        $query = $this->F_requests->query();
-        $query->update()
-                  ->set(['status'=>1])
-                  ->where(['senderId'=> $senderid])
-                  ->where(['receiverId'=>$userid])
-                  ->execute();
         // UserTableのfriendsにインサート
             //送られた側のfriends情報取得
         $query = $this->Users->find()
@@ -193,6 +194,7 @@ class UsersController extends AppController{
 
         $this->redirect('/notice');
       }
+    //Friensリクエストをキャンセルするとき
       else {
         $query = $this->F_requests->query();
         $query->delete()
