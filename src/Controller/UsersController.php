@@ -89,16 +89,39 @@ class UsersController extends AppController{
       $this->redirect(["controller"=>"users",'action'=>'login']);
     }
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    // 自分以外のuserをVIEW表示する
-    $users = $this->Users->find()
-                            ->where(['id IS NOT' => $userid])
-                            ->all();
-    $this->set("users",$users);
+    // 自分以外,既に友達になっているユーザー以外のuserをVIEW表示する
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        //既に友達になっているUserIdを取得
+        $query = $this->Users->find()
+                        ->select('friends')
+                        ->where([ 'id' => $userid]);
+        $friends = $query->toArray();
+          if (count($friends) == 0) {
+            $this->Flash->error("Frienda are nothing!");
+            $this->set('users',null);
+          }
+          else {
+            $friends = explode(",",$friends[0]['friends']); //Friendsのidの配列
+
+            $users = $this->Users->find();
+            $conditions = array();
+            for ($i=0; $i < count($friends)-1 ; $i++) {
+              $conditions['AND'][]=[
+                'id IS NOT' => $friends[$i]
+              ];
+            }
+            $users->where(['id IS NOT' => $userid])->where($conditions);
+            $users = $users->toArray();
+        $this->set("users",$users);
+          }
+
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     // F_requestsTableへinsert
     $this->loadModel("F_requests");
+    $f_requests = $this->paginate($this->F_requests);
+    $this->set('f_requests',$f_requests);
     if ($this->request->is('POST')) {
       $senderid =  $this->request->data['senderId'];
       $receiverid =  $this->request->data['receiverId'];
