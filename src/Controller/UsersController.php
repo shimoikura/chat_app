@@ -67,10 +67,10 @@ class UsersController extends AppController{
     $user = $this->Users->newEntity();
     if ($this->request->is('POST')) {
       $user = $this->Users->patchEntity($user,$this->request->getData());
-      if ($this->Users->save($user)) { //save() -> insert
-        $this->Flash->success("Your registration is successfully created.");  //Flash is class
-        return $this->redirect(array("action"=>"login")); //if function is same class,don't need Controller name.
-      }//successしたときにメッセージ Flash messerge
+      if ($this->Users->save($user)) {
+        $this->Flash->success("Your registration is successfully created.");
+        return $this->redirect(array("action"=>"login"));
+      }
       else {
         $this->Flash->error("Your registration is not created.....try again!");  //Flash is class
       }
@@ -144,8 +144,8 @@ class UsersController extends AppController{
       elseif (isset($this->request->data['cancel']) && $this->request->data['cancel']) {
         $query = $this->F_requests->query();
         $query->delete()
-                  ->where(['senderId'=> $senderid])
-                  ->where(['receiverId'=>$userid])
+                  ->where(['senderId'=> $userid])
+                  ->where(['receiverId'=>$receiverid])
                   ->execute();
       }
       else {
@@ -167,6 +167,13 @@ class UsersController extends AppController{
       $senderid =  $this->request->data['senderId'];
     //Friendリクエストを許可するとき
       if (isset($this->request->data['confirm']) && $this->request->data['confirm']) {
+        // F_requestsTableにインサート
+        $query = $this->F_requests->query();
+        $query->update()
+                  ->set(['status'=>1])
+                  ->where(['senderId'=> $senderid])
+                  ->where(['receiverId'=>$userid])
+                  ->execute();
         // UserTableのfriendsにインサート
             //送られた側のfriends情報取得
         $query = $this->Users->find()
