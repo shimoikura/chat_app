@@ -41,6 +41,7 @@ class UsersController extends AppController{
       }
       else {
         $this->Flash->error("You have not logined.");
+        $this->redirect('/login');
       }
     }
     else {
