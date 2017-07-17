@@ -55,6 +55,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/mypage', ['controller' => 'Homes', 'action' => 'mypost']);
     $routes->connect('/addfriends', ['controller' => 'Users', 'action' => 'addfriends']);
     $routes->connect('/notice', ['controller' => 'Homes', 'action' => 'notice']);
+    $routes->connect('/sendmes', ['controller' => 'Messages', 'action' => 'sendmes']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

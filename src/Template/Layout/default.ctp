@@ -32,6 +32,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('style.css') ?>
     <?= $this->Html->script(array('jquery-3.2.1.js')) ?>
     <?= $this->Html->script(array('bootstrap.js')) ?>
+    <?= $this->Html->script(array('home.js')) ?>
 
 
 
@@ -43,6 +44,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
   <?php $this->request->session(); ?>
   <?php $f_req_num = $this->request->session()->read("f_req_num"); ?>
+  <?php $userid = $this->request->session()->read('userid'); ?>
   <?php $username = $this->request->session()->read("username"); ?>
     <nav class="navbar navbar-default">
       <div class="container">
@@ -53,18 +55,23 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 		    </div>
         <div class="navbar-right">
           <ul class="nav navbar-nav">
+          <!-- Users -->
             <li class="dropdown" role="menu">
-              <a href="" class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'><span class="glyphicon glyphicon-user"></span> <span><?php echo $username; ?></span><span class='caret'></span></a>
+              <a href="#" class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'><span class="glyphicon glyphicon-user"></span> <span><?php echo $username; ?></span><span class='caret'></span></a>
               <ul class='dropdown-menu' role='menu'>
                 <li><a href="<?php echo $this->Url->build('/mypage'); ?>">MY PAGE</a></li>
                 <li><a href=" <?php echo $this->Url->build('/logout',true); ?> ">LOGOUT</a></li>
                 <li><a href=" <?php echo $this->Url->build('/login',true); ?> ">Login as another account</a></li>
               </ul>
             </li>
+            <!-- MESSAGE -->
+            <li><a href="#" id="btn-message" class="glyphicon glyphicon-envelope" data-toggle='message' title="MESSAGE"></a></li>
+            <!-- NOTICE -->
             <li id="li-f_req">
               <a href="<?php echo $this->Url->build('/notice'); ?>" data-toggle="notice" title="NOTICE"><span class="glyphicon glyphicon-bell"></span></a>
               <span id="f-req-num" style="<?php if($f_req_num ==0){echo 'display:none';} ?>"><?php echo $f_req_num; ?></span>
             </li>
+            <!-- SERCH FRIENDS -->
             <li><a href="<?php echo $this->Url->build('/addfriends'); ?>" data-toggle="addfriends" title="SERCH FRIENDS"><span class="glyphicon glyphicon-zoom-in"></span></a></li>
           </ul>
         </div>
@@ -74,20 +81,41 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <div class="container clearfix">
         <?= $this->fetch('content') ?>
     </div>
+
+    <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+    <!-- MESSAGE-USER -->
+    <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+    <div class="message-user-box" style="display:none">
+      <?php foreach ($users as $value) { ?>
+        <p><?php echo $value['username']; ?></p>
+        <button id="<?php echo $value['id']; ?>" class="send-mes">SEND MESSAGE</button>
+      <?php } ?>
+    </div>
+    <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+    <!-- MESSAGE-BOX -->
+    <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+    <div class="message-box" style="display:none">
+      <?php foreach ($mes as $mess) {
+        echo $mess['message'];
+      } ?>
+      <?php echo $this->Form->create(false,['url' => '/sendmes']); ?>
+      <?php
+      echo $this->Form->input('senderId', [
+        'type' => 'hidden',
+        'value' => $userid
+      ]);
+      echo $this->Form->input('receiverId',[
+        'id' => 'mes-receiverId',
+        'type' => 'hidden',
+        'value' => ''
+      ]);
+      echo $this->Form->input('message');
+      echo $this->Form->submit('SEND');
+       ?>
+      <?php echo $this->Form->end(); ?>
+    </div>
+
     <footer>
     </footer>
-
-
-    <script>
-      $(document).ready(function(){
-        $("#btn-notice").click(function(){
-          $('[data-toggle="mypage"]').tooltip();
-          $('[data-toggle="notice"]').tooltip();
-          $('[data-toggle="login"]').tooltip();
-          $('[data-toggle="logout"]').tooltip();
-          $('[data-toggle="addfriends"]').tooltip();
-        });
-      });
-    </script>
 </body>
 </html>
