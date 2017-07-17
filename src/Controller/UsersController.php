@@ -152,6 +152,7 @@ class UsersController extends AppController{
         echo "no";
       }
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    $this->redirect("/addfriends");
     }
   }
 
