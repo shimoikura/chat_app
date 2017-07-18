@@ -15,7 +15,6 @@ class HomesController extends AppController
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     // after login
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    $this->request->session();
     $userid = $this->request->session()->read('userid');
     if ($userid == null) {
       return $this->redirect(['controller'=>'Users','action'=>'login']);
@@ -52,48 +51,6 @@ class HomesController extends AppController
     }
     rsort($allcontents);
     $this->set('contents',$allcontents);
-
-
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    // count of Freindsrequests(Notice) SESSION
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    $this->loadModel("F_requests");
-    $notices = $this->F_requests->find()
-                                    ->where(['receiverId IS' => $userid,'status'=>0])
-                                    ->all();
-    $this->request->session()->write("f_req_num",count($notices));
-
-
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //既に友達になっているUserIdを取得(for MESSAGE)
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    $query = $this->Users->find()
-                    ->select('friends')
-                    ->where([ 'id' => $userid]);
-    $friends = $query->toArray();
-      if (count($friends) == 0) {
-        $this->Flash->error("Friends are nothing!");
-        $this->set('users',null);
-      }
-      else {
-        $friends = explode(",",$friends[0]['friends']); //Friendsのidの配列
-
-        $users = $this->Users->find();
-        $conditions = array();
-        for ($i=0; $i < count($friends)-1 ; $i++) {
-          $conditions['AND'][]=[
-            'id IS' => $friends[$i]
-          ];
-        }
-        $users->where(['id IS NOT' => $userid])->where($conditions);
-        $users = $users->toArray();
-    $this->set("users",$users);
-      }
-
-      // MESSAGESの内容をセット
-      $this->loadModel('Messages');
-      $messages = $this->paginate($this->Messages);
-      $this->set('mes',$messages);
   }
 
 

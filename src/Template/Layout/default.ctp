@@ -57,7 +57,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <ul class="nav navbar-nav">
           <!-- Users -->
             <li class="dropdown" role="menu">
-              <a href="#" class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'><span class="glyphicon glyphicon-user"></span> <span><?php echo $username; ?></span><span class='caret'></span></a>
+              <a href="" class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'><span class="glyphicon glyphicon-user"></span> <span><?php echo $username; ?></span><span class='caret'></span></a>
               <ul class='dropdown-menu' role='menu'>
                 <li><a href="<?php echo $this->Url->build('/mypage'); ?>">MY PAGE</a></li>
                 <li><a href=" <?php echo $this->Url->build('/logout',true); ?> ">LOGOUT</a></li>
@@ -65,7 +65,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
               </ul>
             </li>
             <!-- MESSAGE -->
-            <li><a href="#" id="btn-message" class="glyphicon glyphicon-envelope" data-toggle='message' title="MESSAGE"></a></li>
+            <li  style="cursor:pointer;"><button id="btn-message" class="glyphicon glyphicon-envelope navbar-text" data-toggle='message' title="MESSAGE"></button></li>
             <!-- NOTICE -->
             <li id="li-f_req">
               <a href="<?php echo $this->Url->build('/notice'); ?>" data-toggle="notice" title="NOTICE"><span class="glyphicon glyphicon-bell"></span></a>
@@ -86,7 +86,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <!-- MESSAGE-USER -->
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <div class="message-user-box" style="display:none">
-      <?php foreach ($users as $value) { ?>
+      <?php foreach ($mesusers as $value) { ?>
         <p><?php echo $value['username']; ?></p>
         <button id="<?php echo $value['id']; ?>" class="send-mes">SEND MESSAGE</button>
       <?php } ?>
