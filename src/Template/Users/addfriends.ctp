@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row">
     <?php
-    $this->request->session();
     $userid = $this->request->session()->read("userid");
     ?>
     <?php

@@ -25,11 +25,18 @@ class UsersController extends AppController{
         $this->Auth->setUser($user);
         $this->Users->id = $this->Auth->user("id"); //ユニークなidをセーブする
         $this->Users->name = $this->Auth->user("username");
-
-        $this->request->session();
-        $this->request->session()->write("userid",$this->Users->id);
-
-        $this->Flash->success("You could login successfully.");
+          //Generation of session userid
+          $this->request->session()->write("userid",$this->Users->id);
+          $userid = $this->request->session()->read("userid");
+        // OnlineaTableへインサート
+        $this->loadModel("Onlines");
+        $data = ['userId' => $userid];
+        $online = $this->Onlines->newEntity();
+        $online = $this->Onlines->patchEntity($online,$data);
+        if ($this->Onlines->save($online)) {
+          //success Message
+          $this->Flash->success("You could login successfully.");
+        }
         // $this->redirect(['controller'=>'products','action'=>'admin']);
         // if(in_array($target,$targetArray))
         // {
@@ -52,11 +59,20 @@ class UsersController extends AppController{
 
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-// LOGOUT
+// LOGOUT機能
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   public function logout(){
     $this->autoRender = false;
+    $userid = $this->request->session()->read('userid');
+      // Online user　をOnlinesTableから消去
+      $this->loadModel("Onlines");
+      $query = $this->Onlines->query();
+      $query->delete()
+                ->where(['userId'=> $userid])
+                ->execute();
+    // session Destroy
     $this->request->session()->destroy();
+    //redirect
     $this->redirect('/');
   }
 
@@ -82,7 +98,8 @@ class UsersController extends AppController{
 }
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-// Userの検索、Fried Requestの送信     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// Userの検索、Fried Requestの送信
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   public function addfriends(){
     $this->request->session();
     $userid = $this->request->session()->read("userid");
