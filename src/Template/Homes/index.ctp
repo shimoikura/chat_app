@@ -46,7 +46,20 @@
         </div>
         <div class="contant-container" style="width:100%; word-wrap:break-word; background-color:blue;">
           <p><?php echo $value['body']; ?></p>
-          <p><?php echo $value['favo']; ?><span class="glyphicon glyphicon-heart favo" url="<?php echo $this->Url->build(['controller'=>'Contents','action'=>'favo']); ?>" id="<?php echo $value['id'].'favo'; ?>"></span></p>
+          <p><?php echo $value['favo']; ?>
+            <?php
+            $favoUsers = explode(",",$value['favoUsers']);
+             for ($i=0; $i < count($favoUsers); $i++) {
+              if ($favoUsers[$i] == $userid) {
+                $favoClass = "acfavo";
+                $i = count($favoUsers);
+              }
+              else {
+                $favoClass = "";
+              }
+            } ?>
+            <span class="glyphicon glyphicon-heart favo <?php echo $favoClass; ?>" url="<?php echo $this->Url->build('/favo'); ?>" id="<?php echo $value['id'].'favo'; ?>"></span>
+          </p>
           <p><?php echo $value['created']; ?></p>
         </div>
       </div>
@@ -55,42 +68,3 @@
       </div>
     </div>
   </div>
-
-<script>
-  $(document).ready(function(){
-
-    $(".favo").click(function(){
-      // var url = $(this).attr('url');
-      var id = $(this).attr("id"); //クリックされたid取得
-      var contentId = id.replace(/favo/g,''); //クリックされたContenstableのid
-      if ($(this).hasClass('acfavo')) {
-        alert(contentId);
-        var state = 0;
-      }
-      else {
-        $("#" + id).css({'color':'red'});
-        $("#" + id).addClass('acfavo');
-        alert(contentId);
-        var state = 1;
-      }
-
-      // $.ajax({
-      //   url:url,
-      //   type:'post',
-        // data:{
-        //   state: state,
-        //   id: contentId
-        // },
-      //   dataType: 'text',
-      //   success: function(data){
-      //     console.log(data);
-      //     alert(data);
-      //   },
-      //   error: function(response) {
-      //     console.log(response.responseText);
-      //   }
-      // });
-
-    });
-  });
-</script>

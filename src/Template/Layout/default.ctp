@@ -34,6 +34,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->script(array('bootstrap.js')) ?>
     <?= $this->Html->script(array('home.js')) ?>
     <?= $this->Html->script(array('mypage.js')) ?>
+    <?= $this->Html->script(array('favo.js')) ?>
 
 
 

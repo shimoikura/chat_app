@@ -27,29 +27,39 @@ class ContentsController extends AppController{
     }
   }
 
-  // public function favo() {
-  //   if($this->RequestHandler->isAjax())
-  //   {
-  //     $this->autoRendor = false;
-  //     $this->Layout= 'ajax';
-  //     response = 'ok';
-  //     $this->response->type('text');
-  //     $t
-  //   }
-    // if ($this->request->is('POST')) {
-      // echo "good";
-      // $rhis->response->body($response);
-      // $this->loadModel('Contents');
-      // $favo = $this->Contents->find()->where(['id'=>$id->select('favo')]);
-      // if ($this->request->getData('state') == 0) {
-      //
-      // }
-    // }
-    // else {
-      // echo "bad";
+  public function favo() {
+    $this->autoRender = false;
+    $userid = $this->request->session()->read('userid');
+    $this->loadModel('Contents');
+    if($this->request->is("ajax"))
+    {
+      $state = $_POST['state'];
+      $contentid = $_POST['id'];
+      $query = $this->Contents->find()->where(['id' => $contentid]);
+      $content = $query->toArray();
+      $favo = $content[0]['favo'];
+      $favoUsers = $content[0]['favoUsers'];
+      if ($state == 0) {
+        $favo++;
+        $query = $this->Contents->query()->update()
+          ->set([ 'favo' => $favo , 'favoUsers' => $favoUsers.$userid.","])
+          ->where(['id' => $contentid])
+          ->execute();
+      }
+      else {
+        $favo--;
+        // $query = $this->Contents->query()->update()
+        //   ->set([ 'favo' => $favo])
+        //   ->where(['id' => $contentid , 'favoUser' => $userid.","])
+        //   ->execute();
+      }
+      echo $favo;
+    }
+    else {
+      echo "bad";
       // return $this->redirect('/');
-    // }
-  // }
+    }
+  }
 
 }
 
