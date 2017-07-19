@@ -85,31 +85,40 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <!-- MESSAGE-USER -->
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-    <div class="message-user-box" style="display:none">
+    <div class="message-user-box col-md-3">
+      <table>
       <?php foreach ($mesusers as $value) { ?>
-        <p><?php echo $value['username']; ?></p>
-        <button id="<?php echo $value['id']; ?>" class="send-mes" url="<?php echo $this->Url->build('/getmesinfo'); ?>">SEND MESSAGE</button>
-      <?php } ?>
+            <tr>
+              <td style="width:20%;"><p style="float:left;"><?php echo $value['username']; ?></p></td>
+              <td style="width:80%; text-align:right;"><button id="<?php echo $value['id']; ?>" class="send-mes" url="<?php echo $this->Url->build('/getmesinfo'); ?>" style="float:left;">SEND MESSAGE</button></td>
+            </tr>
+        <?php } ?>
+      </table>
     </div>
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <!-- MESSAGE-BOX -->
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-    <div class="message-box" style="display:none">
-      <?php echo $this->Form->create(false,['url' => '/sendmes']); ?>
-      <?php
-      echo $this->Form->input('senderId', [
-        'type' => 'hidden',
-        'value' => $userid
-      ]);
-      echo $this->Form->input('receiverId',[
-        'id' => 'mes-receiverId',
-        'type' => 'hidden',
-        'value' => ''
-      ]);
-      echo $this->Form->input('message');
-      echo $this->Form->submit('SEND');
-       ?>
-      <?php echo $this->Form->end(); ?>
+    <div class="message-box col-md-3">
+      <div class="message-content-box">
+
+      </div>
+      <div class="message-send-box">
+        <?php echo $this->Form->create(false,['url' => '/sendmes']); ?>
+        <?php
+        echo $this->Form->input('senderId', [
+          'type' => 'hidden',
+          'value' => $userid
+        ]);
+        echo $this->Form->input('receiverId',[
+          'id' => 'mes-receiverId',
+          'type' => 'hidden',
+          'value' => ''
+        ]);
+        echo $this->Form->input('message');
+        echo $this->Form->submit('SEND');
+         ?>
+        <?php echo $this->Form->end(); ?>
+      </div>
     </div>
 
     <footer>

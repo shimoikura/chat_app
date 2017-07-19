@@ -28,11 +28,11 @@ $(document).ready(function(){
       {
         // 相手が送ったメッセージの場合
         if (response[i].message == receiverid) {
-          $('.message-box').prepend($("<p class='part-mes'>").append(response[i].message));
+          $('.message-send-box').append($("<p class='part-mes'>").append(response[i].message));
         }
         // 自分が送ったメッセージの場合
         else {
-          $('.message-box').prepend($("<p class='my-mes'>").append(response[i].message));
+          $('.message-send-box').append($("<p class='my-mes'>").append(response[i].message));
         }
         // alert(response[i].id);
       }
@@ -40,6 +40,7 @@ $(document).ready(function(){
       alert("failed");
     });
 
+    $(".message-user-box").hide();
     $(".message-box").show();
     $("#mes-receiverId").val(receiverid);
   });
