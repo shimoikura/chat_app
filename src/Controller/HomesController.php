@@ -37,12 +37,13 @@ class HomesController extends AppController
 
     $allcontents = array();
     foreach ($contents as $value) {
-      $query = $this->Users->find()->where(['id'=>$value['userId']])->select('username');
+      $query = $this->Users->find()->where(['id'=>$value['userId']]);
       $data = $query->toArray();
       foreach ($data as $user) {
         array_push($allcontents,array(
           'id' => $value['id'],
           'username' => $user['username'],
+          'userImg' => $user['userImg'],
           'body' => $value['body'],
           'favo' => $value['favo'],
           'created' => $value['createdDate']->format('Y/m/d H:i')

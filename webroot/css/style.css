@@ -1,3 +1,31 @@
+/*------------Home index.ctp---------------*/
+.post-box{
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+.post-box input[type="text"]{
+  float: left;
+  width: 70%;
+}
+.post-box input[type="submit"]{
+  float: left;
+  width: 20%;
+}
+.content-box{
+  width: 100%;
+  padding: 5px;
+}
+.user-img-box img{
+  width: 30px;
+  border-radius: 15px;
+  -moz-border-image: border-radius: 15px;
+  -webkit-border-image: border-radius: 15px;
+}
+.contant-container p{
+  margin: 0;
+  text-align: left;
+}
+
 /*----------------nav-------------------*/
 #li-f_req{
   position: relative;
