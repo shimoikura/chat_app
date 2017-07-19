@@ -102,6 +102,7 @@ class AppController extends Controller
         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         //既に友達になっているUserIdを取得(for MESSAGE)
         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        $this->loadModel("Users");
         $query = $this->Users->find()
                         ->select('friends')
                         ->where([ 'id' => $userid]);
@@ -109,36 +110,18 @@ class AppController extends Controller
           if (count($friends) == 0) {
             $this->Flash->error("Friends are nothing!");
             $this->set('users',null);
-            print_r($users);
-            exit;
           }
           else {
             $friends = explode(",",$friends[0]['friends']); //Friendsのidの配列
-
             $users = $this->Users->find();
-
             $conditions = array();
             for ($i=0; $i < count($friends)-1 ; $i++) {
-              // $conditions['AND'][]=[
-              //   'id IS' => $friends[$i]
               $id = $friends[$i];
               $users = $this->Users->get($id);
               array_push($conditions,$users);
-              // ];
             }
-
-            // $users->where(['id IS NOT' => $userid])->where($conditions);
-            // $users = $users->toArray();
-            // echo "<pre>";
-            // print_r($conditions);
-            // exit;
         $this->set("mesusers",$conditions);
           }
-
-          // MESSAGESの内容をセット
-          $this->loadModel('Messages');
-          $messages = $this->paginate($this->Messages);
-          $this->set('mes',$messages);
     }
 
     public function isAuthorized()

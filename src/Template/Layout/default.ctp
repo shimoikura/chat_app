@@ -88,16 +88,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <div class="message-user-box" style="display:none">
       <?php foreach ($mesusers as $value) { ?>
         <p><?php echo $value['username']; ?></p>
-        <button id="<?php echo $value['id']; ?>" class="send-mes">SEND MESSAGE</button>
+        <button id="<?php echo $value['id']; ?>" class="send-mes" url="<?php echo $this->Url->build('/getmesinfo'); ?>">SEND MESSAGE</button>
       <?php } ?>
     </div>
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <!-- MESSAGE-BOX -->
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <div class="message-box" style="display:none">
-      <?php foreach ($mes as $mess) {
-        echo $mess['message'];
-      } ?>
       <?php echo $this->Form->create(false,['url' => '/sendmes']); ?>
       <?php
       echo $this->Form->input('senderId', [
