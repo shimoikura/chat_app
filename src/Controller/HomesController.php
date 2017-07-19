@@ -75,7 +75,14 @@ class HomesController extends AppController
                               ->all();
     $user = $query->toArray();
     $friends = explode(",",$user[0]['friends']); //Friendsのidの配列
-    $this->set(compact('user','friends'));
+    $conditions = array();
+    for ($i=0; $i < count($friends)-1; $i++) {
+      $conditions['OR'][] = [
+        'id IS' => $friends[$i]
+      ];
+    }
+    $fusers = $this->Users->find()->where($conditions)->all();
+    $this->set(compact('user','fusers','friends'));
 
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     // Content

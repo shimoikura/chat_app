@@ -72,13 +72,13 @@ text-align: center;
   width: 100%;
 }
 
-/*ユーザーページ UserImage*/
+/*----------------ユーザーページ UserImage--------------*/
 .userImg-box img {
     border-radius: 100px;
     -moz-border-image: border-radius: 100px;
     -webkit-border-image: border-radius: 100px;
 }
-/*MESSAGE-USER-LIST*/
+/*------------------MESSAGE-USER-LIST------------------*/
 .message-user-box{
   display: none;
   position: fixed;
@@ -87,7 +87,7 @@ text-align: center;
   border:1px solid #cccccc;
 
 }
-/*MESSAGEBOX*/
+/*----------------------MESSAGEBOX-------------------*/
 .message-box{
   display: none;
   position: fixed;
@@ -95,4 +95,18 @@ text-align: center;
   bottom: 50px;
   border:1px solid #cccccc;
 
+}
+/*------------------------mypost.ctp------------------*/
+table.mypage-user{
+  text-align: center;
+  line-height: 1.5;
+}
+table.mypage-user th{
+  text-align: center;
+}
+table.mypage-user td{
+  width: 100px;
+}
+.fuser-box span.active{
+  color: lightgreen;
 }

@@ -33,6 +33,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->script(array('jquery-3.2.1.js')) ?>
     <?= $this->Html->script(array('bootstrap.js')) ?>
     <?= $this->Html->script(array('home.js')) ?>
+    <?= $this->Html->script(array('mypage.js')) ?>
 
 
 
@@ -65,7 +66,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
               </ul>
             </li>
             <!-- MESSAGE -->
-            <li  style="cursor:pointer;"><button id="btn-message" class="glyphicon glyphicon-envelope navbar-text" data-toggle='message' title="MESSAGE"></button></li>
+            <li  style="cursor:pointer;"><p id="btn-message" class="glyphicon glyphicon-envelope navbar-text" data-toggle='message' title="MESSAGE"></p></li>
             <!-- NOTICE -->
             <li id="li-f_req">
               <a href="<?php echo $this->Url->build('/notice'); ?>" data-toggle="notice" title="NOTICE"><span class="glyphicon glyphicon-bell"></span></a>
