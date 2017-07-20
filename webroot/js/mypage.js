@@ -7,7 +7,7 @@ $(document).ready(function(){
       dataType:'json'
     }).done(function(response){
       for (var i = 0; i < response.length; i++) {
-        $("#" + response[i].id + "online").addClass('active');
+        $("#" + response[i].userId + "online").addClass('active');
       }
     }).fail(function(response){
       alert("failed");

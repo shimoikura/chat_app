@@ -4,12 +4,10 @@ $(document).ready(function(){
     var id = $(this).attr("id"); //クリックされたid取得
     var contentId = id.replace(/favo/g,''); //クリックされたContenstableのid
     if ($(this).hasClass('acfavo')) {
-      alert(contentId);
       var state = 1;
     }
     else {
       $("#" + id).addClass('acfavo');
-      alert(contentId);
       var state = 0;
     }
 
@@ -22,7 +20,7 @@ $(document).ready(function(){
         id: contentId
       },
       }).done(function(response){
-        alert(response);
+        alert("success");
       }).fail(function(){
         alert("failed");
       });
