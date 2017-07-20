@@ -22,7 +22,7 @@
   <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
 
   <!-- Friends LIST BOX -->
-  <div class="friends-list-box">
+  <div class="friends-list-box" style="display:none;">
     <p>FRIENDS LIST</p>
     <?php foreach ($fusers as $fuser) { ?>
       <div class="fuser-box">
