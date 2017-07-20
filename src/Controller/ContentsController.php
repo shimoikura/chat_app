@@ -48,10 +48,13 @@ class ContentsController extends AppController{
       }
       else {
         $favo--;
-        // $query = $this->Contents->query()->update()
-        //   ->set([ 'favo' => $favo])
-        //   ->where(['id' => $contentid , 'favoUser' => $userid.","])
-        //   ->execute();
+        $query = $this->Contents->find()->select(['favoUsers'])->where(['id'=> $contentid])->toArray();
+        $favoUsers = $query[0]['favoUsers'];
+        $replace = str_replace($userid.',' , '' ,$favoUsers);
+        $query = $this->Contents->query()->update()
+          ->set([ 'favo' => $favo , 'favoUsers' => $replace])
+          ->where(['id' => $contentid])
+          ->execute();
       }
       echo $favo;
     }

@@ -20,7 +20,6 @@ $(document).ready(function(){
         id: contentId
       },
       }).done(function(response){
-        alert("success");
         location.reload();
       }).fail(function(){
         alert("failed");
