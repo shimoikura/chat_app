@@ -21,6 +21,7 @@ $(document).ready(function(){
       },
       }).done(function(response){
         alert("success");
+        location.reload();
       }).fail(function(){
         alert("failed");
       });

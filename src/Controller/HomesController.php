@@ -47,7 +47,7 @@ class HomesController extends AppController
           'body' => $value['body'],
           'favo' => $value['favo'],
           'favoUsers' => $value['favoUsers'],
-          'created' => $value['createdDate']->format('Y/m/d H:i')
+          'created' => $value['created']
         ));
       }
     }
