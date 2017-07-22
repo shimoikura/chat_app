@@ -59,6 +59,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/getmesinfo', ['controller' => 'Messages', 'action' => 'getmesinfo']);
     $routes->connect('/online', ['controller' => 'Onlines', 'action' => 'onlineuser']);
     $routes->connect('/favo', ['controller' => 'Contents', 'action' => 'favo']);
+    $routes->connect('/userupdate', ['controller' => 'Users', 'action' => 'userupdate']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
