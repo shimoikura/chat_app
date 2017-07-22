@@ -8,7 +8,7 @@ class UsersController extends AppController{
 
   public function beforeFilter(Event $event){
     parent::beforeFilter($event);
-    $this->Auth->allow(['login','logout','register','addfriends','frequest']);
+    $this->Auth->allow(['login','logout','register','addfriends','frequest','userupdate']);
   }
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -243,5 +243,22 @@ class UsersController extends AppController{
       $this->redirect("/");
     }
   }
+
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  // UserInformation アップデート
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  public function userupdate(){
+    $this->autoRender = false;
+    $userid = $this->request->session()->read('userid');
+    $user = $this->request->getData();
+      $this->Users->query()->update()
+                                  ->set([
+                                      'username' => $user['username']
+                                    ])
+                                  ->where([ 'id' => $userid ])
+                                  ->execute();
+      $this->redirect('/mypage');
+  }
+
 }
  ?>
