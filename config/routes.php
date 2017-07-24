@@ -60,6 +60,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/online', ['controller' => 'Onlines', 'action' => 'onlineuser']);
     $routes->connect('/favo', ['controller' => 'Contents', 'action' => 'favo']);
     $routes->connect('/userupdate', ['controller' => 'Users', 'action' => 'userupdate']);
+    $routes->connect('/mymessages', ['controller' => 'App', 'action' => 'mymessages']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

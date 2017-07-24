@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  // MesseageFriends一覧の表示
   $("#flist").click(function(){
     var url = $(this).attr('url');
     $.ajax({
@@ -13,5 +14,14 @@ $(document).ready(function(){
     }).fail(function(response){
       alert("failed");
     });
+  });
+
+  // UserInformationの編集
+  $("#btn-myupdate").click(function(){
+    $(".userInfo-box-before").hide();
+    $(".userInfo-box-after").show();
+  });
+  $("#btn-save").click(function(){
+
   });
 });

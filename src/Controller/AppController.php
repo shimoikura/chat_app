@@ -121,7 +121,30 @@ class AppController extends Controller
               array_push($conditions,$users);
             }
         $this->set("mesusers",$conditions);
-          }
+      }
+    }
+
+    public function beforeFilter(Event $event){
+      parent::beforeFilter($event);
+      $this->Auth->allow(['mymessages']);
+    }
+
+    public function mymessages(){
+      //MESSAGE
+      if ($this->request->is("ajax")) {
+        $this->autoRender = false;
+        $userid = $this->request->session()->read('userid');
+        $receiverId = $_POST['receiverid'];
+        $this->loadModel("Messages");
+        $senderId = $userid;
+        //MessagesTableからメッセージ情報を取得
+        $query = $this->Messages->find()
+          ->where([ 'senderId' => $senderId, 'receiverId' => $receiverId])
+          ->orwhere([ 'senderId' => $receiverId, 'receiverId' => $senderId])
+          ->all();
+        $mymessages = $query->toArray();
+        echo json_encode($mymessages);
+      }
     }
 
     public function isAuthorized()
