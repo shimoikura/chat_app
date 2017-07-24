@@ -36,6 +36,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->script(array('mypage.js')) ?>
     <?= $this->Html->script(array('favo.js')) ?>
     <?= $this->Html->script(array('online.js')) ?>
+    <?= $this->Html->script(array('message.js')) ?>
 
 
 
@@ -88,12 +89,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <!-- MESSAGE-USER -->
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-    <div class="message-user-box col-md-3">
+    <div class="message-user-box col-md-3 modal-box">
       <table>
       <?php foreach ($mesusers as $value) { ?>
             <tr>
               <td style="width:20%;"><p style="float:left;"><?php echo $value['username']; ?></p></td>
-              <td style="width:80%; text-align:right;"><button id="<?php echo $value['id']; ?>" class="send-mes" url="<?php echo $this->Url->build('/getmesinfo'); ?>" style="float:left;">SEND MESSAGE</button></td>
+              <td style="width:80%; text-align:right;"><button id="<?php echo $value['id']; ?>" class="send-mes" url="<?php echo $this->Url->build("/mymessages"); ?>" style="float:left;">SEND MESSAGE</button></td>
             </tr>
         <?php } ?>
       </table>
@@ -101,30 +102,36 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <!-- MESSAGE-BOX -->
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-    <div class="message-box col-md-3">
+    <div class="message-box col-md-3 modal-box">
       <div class="message-content-box">
-
+        
       </div>
       <div class="message-send-box">
-        <?php echo $this->Form->create(false,['url' => '/sendmes']); ?>
+        <?php echo $this->Form->create(); ?>
         <?php
         echo $this->Form->input('senderId', [
           'type' => 'hidden',
           'value' => $userid
         ]);
         echo $this->Form->input('receiverId',[
-          'id' => 'mes-receiverId',
           'type' => 'hidden',
-          'value' => ''
+          'value' => '',
+          'id' => 'mes-receiverId'
         ]);
-        echo $this->Form->input('message');
-        echo $this->Form->submit('SEND');
          ?>
+        <table border="1">
+          <tr>
+            <td><?php echo $this->Form->input('message',['label' => false , 'id' => 'mes-body']); ?></td>
+            <?php $url = $this->Url->build('/sendmes'); ?>
+            <td><?php echo $this->Form->submit('SEND',['id' => 'send-mes' , 'type' => 'button' ,'url' => $url]); ?></td>
+          </tr>
+        </table>
         <?php echo $this->Form->end(); ?>
       </div>
     </div>
 
     <footer>
     </footer>
+    <!-- <div id="modal-overlay"></div> -->
 </body>
 </html>

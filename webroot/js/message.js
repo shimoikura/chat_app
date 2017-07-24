@@ -12,7 +12,7 @@ $(document).ready(function(){
       dataType:'html',
       data:{receiverid:receiverid,body:body},
     }).done(function(response){
-      alert(response);
+      // alert(response);
     }).fail(function(){
       alert("failed");
     });
