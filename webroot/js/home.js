@@ -12,6 +12,20 @@ $(document).ready(function(){
   // OPEN MESSAGE-BOX
   $("#btn-message").click(function(){
     $(".message-user-box").show();
+    // キーボード操作などにより、オーバーレイが多重起動するのを防止する
+    $(this).blur() ; //ボタンからフォーカスを外す
+    if($("#modal-overlay")[0]) return false ; //新しくモーダルウィンドウを起動しない
+    $("body").append('<div id="modal-overlay"></div>');
+    $("#modal-overlay").fadeIn("slow");
+    //[#modal-overlay]をクリックしたら…
+    $("#modal-overlay").unbind().click(function(){
+      //[#modal-box]と[#modal-overlay]をフェードアウトした後に…
+      $(".modal-box,#modal-overlay").fadeOut("slow",function(){
+        //[#modal-overlay]を削除する
+        $('#modal-overlay').remove();
+        $(".modal-box").hide();
+      });
+     });
   });
 
   // MESSAGE
