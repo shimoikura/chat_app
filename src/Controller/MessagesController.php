@@ -16,36 +16,26 @@ class MessagesController extends AppController{
       return $this->redirect(['controller'=>'Users','action'=>'login']);
     }
 
-    if ($this->request->is('POST')) {
+    if ($this->request->is('ajax')) {
       $message = $this->Messages->newEntity();
-      $message = $this->Messages->patchEntity($message,$this->request->getData());
+      $receiverid = $_POST['receiverid'];
+      $body = $_POST['body'];
+      $data = [
+        'senderId' => $userid,
+        'receiverId' => $receiverid,
+        'message' => $body
+      ];
+      $message = $this->Messages->patchEntity($message,$data);
       if ($this->Messages->save($message)) {
         $this->Flash->success('sent message');
-        $this->redirect("/");
+        echo "success";
       }
       else {
         $this->Flash->error('did not send message');
-        $this->redirect("/");
+        echo "error";
       }
     }
   }
 
-  public function getmesinfo(){
-    $userid = $this->request->session()->read('userid');
-    $senderId = $userid;
-    $receiverId = $_POST['receiverid'];
-    $this->autoRender = false;
-    //MessagesTableからメッセージ情報を取得
-    $query = $this->Messages->find()
-      ->where([ 'senderId' => $senderId, 'receiverId' => $receiverId])
-      ->orwhere([ 'senderId' => $receiverId, 'receiverId' => $senderId])
-      ->all();
-    $mymessages = $query->toArray();
-        if ($this->request->is("ajax")) {
-            echo json_encode($mymessages);
-        } else {
-            echo "not ajax";
-        }
-  }
 }
  ?>
