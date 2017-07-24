@@ -3,13 +3,13 @@ $(document).ready(function(){
   var url = $("#logout-link").attr('href');
   $(window).bind("beforeunload", function() {
      confirm("Do you really want to close?");
-    return $.ajax({
-      url:url,
-      type:'post',
-      dataType:'html',
-    }).done(function(response){
-    }).fail(function(){
-      alert("failed");
-    });
+    // return $.ajax({
+    //   url:url,
+    //   type:'post',
+    //   dataType:'html',
+    // }).done(function(response){
+    // }).fail(function(){
+    //   alert("failed");
+    // });
   });
 });
