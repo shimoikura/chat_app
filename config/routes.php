@@ -56,11 +56,10 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/addfriends', ['controller' => 'Users', 'action' => 'addfriends']);
     $routes->connect('/notice', ['controller' => 'Homes', 'action' => 'notice']);
     $routes->connect('/sendmes', ['controller' => 'Messages', 'action' => 'sendmes']);
-    $routes->connect('/getmesinfo', ['controller' => 'Messages', 'action' => 'getmesinfo']);
     $routes->connect('/online', ['controller' => 'Onlines', 'action' => 'onlineuser']);
     $routes->connect('/favo', ['controller' => 'Contents', 'action' => 'favo']);
     $routes->connect('/userupdate', ['controller' => 'Users', 'action' => 'userupdate']);
-    $routes->connect('/mymessages', ['controller' => 'App', 'action' => 'mymessages']);
+    $routes->connect('/mymessages', ['controller' => 'Messages', 'action' => 'mymessages']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

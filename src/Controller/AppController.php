@@ -90,15 +90,20 @@ class AppController extends Controller
         }
         $userid = $this->request->session()->read('userid');
         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        // count of Freindsrequests(Notice) SESSION
+        // count of Notice SESSION
         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        $this->loadModel("F_requests");
-        $notices = $this->F_requests->find()
-                                        ->where(['receiverId IS' => $userid,'status'=>0])
-                                        ->all();
-        $this->request->session()->write("f_req_num",count($notices));
-
-
+            // count of friends requests
+            $this->loadModel("F_requests");
+            $fnotices = $this->F_requests->find()
+                                            ->where(['receiverId IS' => $userid,'status'=>0])
+                                            ->all();
+            $this->request->session()->write("f_req_num",count($fnotices));
+            // count of send messeages
+            $this->loadModel("Messages");
+            $mnotices = $this->Messages->find()
+                                            ->where(['receiverId IS' => $userid,'status' => 0])
+                                            ->all();
+            $this->request->session()->write("mes_num",count($mnotices));
         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         //既に友達になっているUserIdを取得(for MESSAGE)
         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -126,26 +131,8 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event){
       parent::beforeFilter($event);
-      $this->Auth->allow(['mymessages']);
     }
 
-    public function mymessages(){
-      //MESSAGE
-      if ($this->request->is("ajax")) {
-        $this->autoRender = false;
-        $userid = $this->request->session()->read('userid');
-        $receiverId = $_POST['receiverid'];
-        $this->loadModel("Messages");
-        $senderId = $userid;
-        //MessagesTableからメッセージ情報を取得
-        $query = $this->Messages->find()
-          ->where([ 'senderId' => $senderId, 'receiverId' => $receiverId])
-          ->orwhere([ 'senderId' => $receiverId, 'receiverId' => $senderId])
-          ->all();
-        $mymessages = $query->toArray();
-        echo json_encode($mymessages);
-      }
-    }
 
     public function isAuthorized()
     {

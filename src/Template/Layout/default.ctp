@@ -48,6 +48,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
   <?php $this->request->session(); ?>
   <?php $f_req_num = $this->request->session()->read("f_req_num"); ?>
+  <?php $mes_num = $this->request->session()->read("mes_num"); ?>
   <?php $userid = $this->request->session()->read('userid'); ?>
   <?php $username = $this->request->session()->read("username"); ?>
     <nav class="navbar navbar-default">
@@ -69,7 +70,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
               </ul>
             </li>
             <!-- MESSAGE -->
-            <li  style="cursor:pointer;"><p id="btn-message" class="glyphicon glyphicon-envelope navbar-text" data-toggle='message' title="MESSAGE"></p></li>
+            <li  style="cursor:pointer;">
+              <p id="btn-message" class="glyphicon glyphicon-envelope navbar-text" data-toggle='message' title="MESSAGE"></p>
+              <span id="mes-num" style="<?php if($mes_num ==0){echo 'display:none';} ?>"><?php echo $mes_num; ?></span>
+            </li>
             <!-- NOTICE -->
             <li id="li-f_req">
               <a href="<?php echo $this->Url->build('/notice'); ?>" data-toggle="notice" title="NOTICE"><span class="glyphicon glyphicon-bell"></span></a>
@@ -104,7 +108,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <div class="message-box col-md-3 modal-box">
       <div class="message-content-box">
-        
+
       </div>
       <div class="message-send-box">
         <?php echo $this->Form->create(); ?>
