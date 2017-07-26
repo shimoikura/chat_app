@@ -101,7 +101,7 @@ class AppController extends Controller
             // count of send messeages
             $this->loadModel("Messages");
             $mnotices = $this->Messages->find()
-                                            ->where(['receiverId IS' => $userid,'status' => 0])
+                                            ->where(['receiverId' => $userid,'status' => 0])
                                             ->all();
             $this->request->session()->write("mes_num",count($mnotices));
         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -120,9 +120,16 @@ class AppController extends Controller
             $friends = explode(",",$friends[0]['friends']); //Friendsのidの配列
             $users = $this->Users->find();
             $conditions = array();
+            $this->loadModel("Messages");
             for ($i=0; $i < count($friends)-1 ; $i++) {
               $id = $friends[$i];
+              $query = $this->Messages->find()
+                                          ->where(['senderId' => $id , 'receiverId' => $userid ,'status' => 0])
+                                          ->all();
+              $mes = $query->toArray();
               $users = $this->Users->get($id);
+              $users = $users->toArray();
+              $users['count']=count($mes);
               array_push($conditions,$users);
             }
         $this->set("mesusers",$conditions);

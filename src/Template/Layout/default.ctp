@@ -94,11 +94,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <!-- MESSAGE-USER -->
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <div class="message-user-box col-md-3 modal-box">
-      <table>
+      <table style=" text-align:right;">
       <?php foreach ($mesusers as $value) { ?>
             <tr>
               <td style="width:20%;"><p style="float:left;"><?php echo $value['username']; ?></p></td>
-              <td style="width:80%; text-align:right;"><button id="<?php echo $value['id']; ?>" class="send-mes" url="<?php echo $this->Url->build("/mymessages"); ?>" style="float:left;">SEND MESSAGE</button></td>
+              <td style="width:80%; padding-left:150px; position:relative;"><button id="<?php echo $value['id']; ?>" class="send-mes glyphicon glyphicon-envelope" url="<?php echo $this->Url->build("/mymessages"); ?>" style="float:left;"></button>
+                <span class="message-user-num" style="<?php if($value['count'] ==0){echo 'display:none';} ?>"><?php echo $value['count']; ?></span>
+              </td>
             </tr>
         <?php } ?>
       </table>
