@@ -251,13 +251,24 @@ class UsersController extends AppController{
     $this->autoRender = false;
     $userid = $this->request->session()->read('userid');
     $user = $this->request->getData();
+    $img = $this->request->data['userImg'];
+    $image_name = $img['name'];
+    $image_size = $img['size'];
+    if ($image_size < 5000000) {
+      $image_name = time()."_".$image_name;
       $this->Users->query()->update()
                                   ->set([
-                                      'username' => $user['username']
+                                      'username' => $user['username'],
+                                      'userImg' => "userImages/".$image_name
                                     ])
                                   ->where([ 'id' => $userid ])
                                   ->execute();
+      move_uploaded_file($img['tmp_name'],WWW_ROOT."img/userImages/".$image_name);
       $this->redirect('/mypage');
+    }
+    else {
+      $this->Flash->error("You couldn't update your infoemation. Your image size is too lerge.");  //Flash is class
+    }
   }
 
 }

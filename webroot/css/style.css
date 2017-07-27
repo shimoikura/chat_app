@@ -49,7 +49,21 @@
 -ms-border-radius: 50%;
 text-align: center;
 }
-
+#mes-num{
+  top: 6px;
+  left:20px;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  color: red;
+  background-color: #efefef;
+  border-radius: 50%;
+-moz-border-radius: 50%;
+-webkit-border-radius: 50%;
+-o-border-radius: 50%;
+-ms-border-radius: 50%;
+text-align: center;
+}
 /*-------------Login-login.ctp-------------*/
 
 .form-signin{
@@ -89,18 +103,88 @@ text-align: center;
   right: 30px;
   bottom: 50px;
   border:1px solid #cccccc;
-
+  background-color: #AAAAAA;
+  z-index:2;
 }
-/*----------------------MESSAGEBOX-------------------*/
+.message-user-num{
+  top: -4px;
+  right:-2px;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  color: red;
+  background-color: #efefef;
+  border-radius: 50%;
+-moz-border-radius: 50%;
+-webkit-border-radius: 50%;
+-o-border-radius: 50%;
+-ms-border-radius: 50%;
+text-align: center;
+}
+/*----------------------MESSAGEBOX (Modal)-------------------*/
 .message-box{
   display: none;
   position: fixed;
   right: 30px;
   bottom: 50px;
   border:1px solid #cccccc;
-
+  background-color: #AAAAAA;
+  z-index:2;
+  height: 300px;
+}
+#modal-overlay{
+	z-index:1;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:120%;
+	/*background-color:rgba(0,0,0,0.75);*/
+}
+.message-content-box{
+  width: 100%;
+  height: 270px;
+  overflow-y: scroll;
+}
+.pa-mes-box{
+  width: 100%;
+}
+.my-mes-box{
+  width: 100%;
+}
+.my-mes{
+  margin-left: 10%;
+  width: 80%;
+  padding: 5px;
+  border-radius: 5px;
+  border: solid #efefef;
+  float: right;
+  text-align: right;
+  background-color: #fff;
+  word-wrap:break-word;
+}
+.pa-mes{
+  float: left;
+  background-color: #fff;
+  margin-right: 10%;
+  width: 80%;
+  padding: 5px;
+  border-radius: 5px;
+  border: solid #efefef;
+  text-align: left;
+  word-wrap:break-word;
+}
+.message-send-box{
+    margin-bottom: 5px;
+    bottom: 0;
 }
 /*------------------------mypost.ctp------------------*/
+.userInfo-box-after{
+  z-index: 6;
+  background:#fff;
+  background: #efefef;
+  display: none;
+}
 table.mypage-user{
   text-align: center;
   line-height: 1.5;
@@ -113,4 +197,35 @@ table.mypage-user td{
 }
 .fuser-box span.active{
   color: lightgreen;
+}
+.mypage-btn-box{
+  z-index: 1;
+}
+.btn-mypage{
+  padding: 5px 10px;
+  border: solid 1px;
+  text-align: center;
+  border-radius: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+#btn-cancel,#btn-save{
+  display: none;
+  background: #efefef;
+  float: left;
+}
+#btn-save{
+  color: #333;
+}
+#ed-name{
+  width: 150px;
+}
+#modal-overlay1{
+	z-index:-1;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:120%;
+	background-color:rgba(0,0,0,0.75);
 }
