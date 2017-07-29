@@ -12,6 +12,7 @@
         dataType:"html",
         data:{data:data,name:name},
       }).done(function(response){
+        $("#uImgname").attr("value",response);
         $("#imgUpload").attr("src","img/userImages/"+response);
         $(".change-imgsize-box").hide();
         $('#modal-overlay1').remove();

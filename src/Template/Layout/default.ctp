@@ -30,13 +30,16 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('cake.css') ?> -->
     <?= $this->Html->css('bootstrap.css') ?>
     <?= $this->Html->css('style.css') ?>
-    <?= $this->Html->script(array('jquery-3.2.1.js')) ?>
+    <?= $this->Html->css('cropper.css') ?>
+    <?= $this->Html->script(array('jquery.js')) ?>
     <?= $this->Html->script(array('bootstrap.js')) ?>
     <?= $this->Html->script(array('home.js')) ?>
     <?= $this->Html->script(array('mypage.js')) ?>
     <?= $this->Html->script(array('favo.js')) ?>
     <?= $this->Html->script(array('online.js')) ?>
     <?= $this->Html->script(array('message.js')) ?>
+    <?= $this->Html->script(array('userImg.js')) ?>
+    <?= $this->Html->script(array('cropper.js')) ?>
 
 
 

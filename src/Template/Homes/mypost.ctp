@@ -29,7 +29,8 @@
         <table class="mypage-user">
           <div class="userImg-box">
             <?php echo $this->Html->image($user[0]['userImg'],['width'=>'200px', 'id'=>'imgUpload']); ?>
-            <input type="file" style="display:none;" id="imgg" name="userImg">
+            <input type="file" style="display:none;" id="imgg" url="<?php echo $this->Url->build("/moveimg"); ?>">
+            <?php echo $this->Form->input("userImg",['id' => "uImgname","type"=>"hidden"]); ?>
           </div>
           <tr>
             <td rowspan="2"><h3 style="margin:0;">
@@ -58,6 +59,15 @@
 
     </div>
 
+    <!-- アップロード画像のサイズの変更 -->
+
+    <div class="change-imgsize-box">
+      <?php echo $this->Html->image("userImages/Taylor_Swift.jpg",[
+                                        'id' => 'user-img-sum',
+                                        'class' => 'img-responsive img-circle'
+                                      ]); ?>
+      <button id="btn-get" type="button" name="button" url="<?php echo $this->Url->build("/imger"); ?>">GET DATA</button>
+    </div>
 
 
 

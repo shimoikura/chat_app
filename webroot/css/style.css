@@ -89,13 +89,6 @@ text-align: center;
 .form-user-register input[type='email']{
   width: 100%;
 }
-
-/*----------------ユーザーページ UserImage--------------*/
-.userImg-box img {
-    border-radius: 100px;
-    -moz-border-image: border-radius: 100px;
-    -webkit-border-image: border-radius: 100px;
-}
 /*------------------MESSAGE-USER-LIST------------------*/
 .message-user-box{
   display: none;
@@ -229,3 +222,15 @@ table.mypage-user td{
 	height:120%;
 	background-color:rgba(0,0,0,0.75);
 }
+/*----------------ユーザーページ UserImage--------------*/
+.userImg-box img {
+    width: 200px;
+    border-radius: 100px;
+    -moz-border-image: border-radius: 100px;
+    -webkit-border-image: border-radius: 100px;
+}
+ /*change-imgsize-box アップロード画像のサイズの変更 */
+ .change-imgsize-box{
+   width: 300px;
+   display: none;
+ }
