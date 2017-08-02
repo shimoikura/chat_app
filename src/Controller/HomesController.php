@@ -116,6 +116,9 @@ class HomesController extends AppController
 
     $this->loadModel('Users');
     $all_r_users = array();
+    if (count($requests) == 0) {
+      $this->Flash->error("Your friend request is nothing!");
+    }
     for ($i=0; $i < count($requests); $i++) {
       $idn = $requests[$i]['senderId'];
       $query1 = $this->Users->find()->where(['id'=>$idn])->first();
