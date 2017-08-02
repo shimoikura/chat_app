@@ -67,9 +67,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?php echo $this->Form->end(); ?>
 
-    <?php echo $this->Html->link("Here",['action'=>'register']); ?>
-      <!-- <p>New customer? <a href="registration.php">Start here</a></p>
-      <p><a href="index.php">HOME</a></p> -->
+    <p style="text-align:center;">New customer? <?php echo $this->Html->link("Here",['action'=>'register']); ?></p>
   </div> <!-- /container -->
 
     <footer>

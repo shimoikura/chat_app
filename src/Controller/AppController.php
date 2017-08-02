@@ -89,51 +89,53 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
         $userid = $this->request->session()->read('userid');
-        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        // count of Notice SESSION
-        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            // count of friends requests
-            $this->loadModel("F_requests");
-            $fnotices = $this->F_requests->find()
-                                            ->where(['receiverId IS' => $userid,'status'=>0])
-                                            ->all();
-            $this->request->session()->write("f_req_num",count($fnotices));
-            // count of send messeages
-            $this->loadModel("Messages");
-            $mnotices = $this->Messages->find()
-                                            ->where(['receiverId' => $userid,'status' => 0])
-                                            ->all();
-            $this->request->session()->write("mes_num",count($mnotices));
-        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        //既に友達になっているUserIdを取得(for MESSAGE)
-        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        $this->loadModel("Users");
-        $query = $this->Users->find()
-                        ->select('friends')
-                        ->where([ 'id' => $userid]);
-        $friends = $query->toArray();
-          if (count($friends) == 0) {
-            $this->Flash->error("Friends are nothing!");
-            $this->set('users',null);
-          }
-          else {
-            $friends = explode(",",$friends[0]['friends']); //Friendsのidの配列
-            $users = $this->Users->find();
-            $conditions = array();
-            $this->loadModel("Messages");
-            for ($i=0; $i < count($friends)-1 ; $i++) {
-              $id = $friends[$i];
-              $query = $this->Messages->find()
-                                          ->where(['senderId' => $id , 'receiverId' => $userid ,'status' => 0])
-                                          ->all();
-              $mes = $query->toArray();
-              $users = $this->Users->get($id);
-              $users = $users->toArray();
-              $users['count']=count($mes);
-              array_push($conditions,$users);
+        if ($userid != null) {
+          // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          // count of Notice SESSION
+          // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              // count of friends requests
+              $this->loadModel("F_requests");
+              $fnotices = $this->F_requests->find()
+                                              ->where(['receiverId IS' => $userid,'status'=>0])
+                                              ->all();
+              $this->request->session()->write("f_req_num",count($fnotices));
+              // count of send messeages
+              $this->loadModel("Messages");
+              $mnotices = $this->Messages->find()
+                                              ->where(['receiverId' => $userid,'status' => 0])
+                                              ->all();
+              $this->request->session()->write("mes_num",count($mnotices));
+          // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          //既に友達になっているUserIdを取得(for MESSAGE)
+          // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              $this->loadModel("Users");
+              $query = $this->Users->find()
+                              ->select('friends')
+                              ->where([ 'id' => $userid]);
+              $friends = $query->toArray();
+                if (count($friends) == 0) {
+                  // $this->Flash->error("Friends are nothing!");
+                  $this->set('users',null);
+                }
+                else {
+                  $friends = explode(",",$friends[0]['friends']); //Friendsのidの配列
+                  $users = $this->Users->find();
+                  $conditions = array();
+                  $this->loadModel("Messages");
+                  for ($i=0; $i < count($friends)-1 ; $i++) {
+                    $id = $friends[$i];
+                    $query = $this->Messages->find()
+                                                ->where(['senderId' => $id , 'receiverId' => $userid ,'status' => 0])
+                                                ->all();
+                    $mes = $query->toArray();
+                    $users = $this->Users->get($id);
+                    $users = $users->toArray();
+                    $users['count']=count($mes);
+                    array_push($conditions,$users);
+                  }
+              $this->set("mesusers",$conditions);
             }
-        $this->set("mesusers",$conditions);
-      }
+        }
     }
 
     public function beforeFilter(Event $event){

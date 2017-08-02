@@ -259,7 +259,7 @@ class UsersController extends AppController{
                                   ])
                                 ->where([ 'id' => $userid ])
                                 ->execute();
-    $this->redirect('/mypage');  
+    $this->redirect('/mypage');
   }
 
 }
