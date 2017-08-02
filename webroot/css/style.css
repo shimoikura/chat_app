@@ -5,15 +5,14 @@
 }
 .post-box input[type="text"]{
   float: left;
-  width: 70%;
+  width: 60%;
 }
 .post-box input[type="submit"]{
   float: left;
   width: 20%;
 }
-.content-box{
-  width: 100%;
-  padding: 5px;
+.post-box button{
+  float:left;
 }
 .user-img-box img{
   width: 30px;

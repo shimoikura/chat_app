@@ -24,6 +24,9 @@ class ContentsTable extends Table{
     $validator
           ->integer('favo')
           ->allowEmpty('favo','create');
+    $validator
+          ->requirePresence("postImg","create")
+          ->allowEmpty("postImg");
     return $validator;
   }
 }

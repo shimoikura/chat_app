@@ -21,10 +21,18 @@
         ?>
         <div class="post-box">
           <?php
-          echo $this->Form->create(null,['url' => ['controller'=>'Contents','action' => 'add']]);
+          echo $this->Form->create(null,['type' => 'file','url' => ['controller'=>'Contents','action' => 'add']]);
           echo $this->Form->input("userId",['type'=>'hidden','value'=>$userid]);
           ?>
           <?php echo $this->Form->input("body",['placeholder'=>'What are you doing now?', 'label' => false]); ?>
+          <button type="button" name="button" id="btn-img-post" data-toggle='addimg' title="Add Image"><span class="glyphicon glyphicon-picture"></span></button>
+          <?php echo $this->Form->file("postImg",[
+            "id" => "post-img",
+            "label" => false,
+            "required"=>false,
+            "errors"=>true,
+            "style" => "display:none;"
+          ]); ?>
           <?php echo $this->Form->submit("POST"); ?>
           <?php echo $this->Form->end(); ?>
         </div>

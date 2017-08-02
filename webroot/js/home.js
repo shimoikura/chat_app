@@ -7,6 +7,12 @@ $(document).ready(function(){
     $('[data-toggle="login"]').tooltip();
     $('[data-toggle="logout"]').tooltip();
     $('[data-toggle="addfriends"]').tooltip();
+    $('[data-toggle="addimg"]').tooltip();
+  });
+
+  //OPEN ADD-IMAGE-BOX (For POST content)
+  $("#btn-img-post").click(function(){
+    $("#post-img").click();
   });
 
   // OPEN MESSAGE-BOX

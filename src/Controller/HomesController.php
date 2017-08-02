@@ -32,7 +32,7 @@ class HomesController extends AppController
     // Load Contenstable and Users to Set contents
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     $this->loadModel('Contents');
-    $contents = $this->paginate($this->Contents);
+    $contents = $this->Contents->find('all')->toArray();
 
 
     $allcontents = array();
@@ -51,6 +51,9 @@ class HomesController extends AppController
         ));
       }
     }
+    //  echo "<pre>";
+    // print_r($contents);
+    // exit;
     rsort($allcontents);
     $this->set('contents',$allcontents);
   }
