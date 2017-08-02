@@ -42,7 +42,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </head>
 <body>
   <h1>Login</h1>
-
+<?= $this->Flash->render() ?>
   <div class="container box-login">
     <?php echo $this->Form->create(false,array(
       'class'=>'form-signin'

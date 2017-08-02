@@ -28,32 +28,20 @@ class UsersController extends AppController{
           //Generation of session userid
           $this->request->session()->write("userid",$this->Users->id);
           $userid = $this->request->session()->read("userid");
+
+          //success Message
+          $this->Flash->success("You could login successfully.");
         // OnlineaTableへインサート
         $this->loadModel("Onlines");
         $data = ['userId' => $userid];
         $online = $this->Onlines->newEntity();
         $online = $this->Onlines->patchEntity($online,$data);
-        if ($this->Onlines->save($online)) {
-          //success Message
-          $this->Flash->success("You could login successfully.");
-        }
-        // $this->redirect(['controller'=>'products','action'=>'admin']);
-        // if(in_array($target,$targetArray))
-        // {
-        //   $this->redirect('/'.$target);
-        // }
-        // else{
+        $this->Onlines->save($online);
         $this->redirect('/');
-        // }
       }
       else {
         $this->Flash->error("You have not logined.");
-        $this->redirect('/login');
       }
-    }
-    else {
-      // echo "string";
-      // $url = $this->referer();
     }
   }
 
