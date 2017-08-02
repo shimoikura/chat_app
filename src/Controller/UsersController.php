@@ -118,6 +118,9 @@ class UsersController extends AppController{
             }
             $users->where(['id IS NOT' => $userid])->where($conditions);
             $users = $users->toArray();
+            if (count($users) == 0) {
+              $this->Flash->error("There no friends who can send friend requests!");
+            }
         $this->set("users",$users);
           }
 
