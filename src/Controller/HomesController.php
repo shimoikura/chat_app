@@ -47,7 +47,8 @@ class HomesController extends AppController
           'body' => $value['body'],
           'favo' => $value['favo'],
           'favoUsers' => $value['favoUsers'],
-          'created' => $value['created']
+          'created' => $value['created'],
+          'postImg' => $value['postImg']
         ));
       }
     }

@@ -24,13 +24,13 @@ class ContentsController extends AppController{
         {
           $image_name = "null";
         }else{
-          $image_name = time()."_".$image_name;
+          $image_name = "contentImages/".time()."_".$image_name;
         }
         $this->request->data['postImg'] = $image_name;
         $content = $this->Contents->patchEntity($content,$this->request->data);
         if ($this->Contents->save($content)) {
             $this->Flash->success('Your content is successfully created. ');
-            move_uploaded_file($img["tmp_name"],WWW_ROOT."img/contentImages/".$image_name);
+            move_uploaded_file($img["tmp_name"],WWW_ROOT."img/".$image_name);
             return $this->redirect('/');
           }
           else {

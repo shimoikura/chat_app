@@ -56,6 +56,9 @@
           </div>
           <div class="contant-container" style="width:100%; word-wrap:break-word; padding:5px;">
             <p><?php echo $value['body']; ?></p>
+            <div class="content-img-box">
+              <?php echo $this->Html->image($value["postImg"]); ?>
+            </div>
             <p><?php echo $value['favo']; ?>
               <?php
               $favoUsers = explode(",",$value['favoUsers']);
