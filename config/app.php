@@ -228,18 +228,10 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            
-            // ^^^^^^^^^^^^^LOCAL
-            // 'host' => 'localhost',
-            // 'username' => 'root',
-            // 'password' => '',
-            // 'database' => 'chat_app',
-            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-            'host' => 'mysql330.db.sakura.ne.jp',
-            'username' => 'comp-hair',
-            'password' => 'reguahh2ur',
-            'database' => 'comp-hair_chat_app',
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => '',
+            'database' => 'chat_app',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
