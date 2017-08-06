@@ -217,6 +217,6 @@ Type::build('timestamp')
  * Only try to load DebugKit in development mode
  * Debug Kit should not be installed on a production system
  */
-if (Configure::read('debug')) {
+if (Configure::read('debug') && !isset($_ENV['CAKE_ENV'])) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
