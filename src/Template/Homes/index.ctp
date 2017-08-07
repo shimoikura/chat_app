@@ -43,8 +43,8 @@
 <!-- A content -->
 <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 <?php foreach ($contents as $value) { ?>
-      <div class="content-box" style="display:table; width:100%; margin-bottom:5px; border:1px solid; border-radius:3px; background-color:#efefef;">
-        <div class="user-img-box" style="display:table-cell; width:10%; height:100%; float:left;">
+      <div class="content-box">
+        <div class="user-img-box">
           <?php $mypage_link = $this->Html->image($value['userImg']); ?>
           <?php echo $this->Html->link($mypage_link,['controller'=>'Homes','action'=>"mypost",$value['userId']],['escape'=>false]); ?>
         </div>
@@ -58,9 +58,16 @@
           <div class="contant-container" style="width:100%; word-wrap:break-word; padding:5px;">
             <p><?php echo $value['body']; ?></p>
             <div class="content-img-box">
-              <?php echo $this->Html->image($value["postImg"]); ?>
+              <?php
+              if ($value["postImg"] == "null") {
+                echo $this->Html->image($value["postImg"],["style" => "display:none"]);
+              }
+              else {
+                echo $this->Html->image($value["postImg"],["class" => "img-responsive","style" => "width:100%;"]);
+              }
+               ?>
             </div>
-            <p><?php echo $value['favo']; ?>
+            <p style="margin-top:5px;">
               <?php
               $favoUsers = explode(",",$value['favoUsers']);
                for ($i=0; $i < count($favoUsers); $i++) {
@@ -73,6 +80,7 @@
                 }
               } ?>
               <span class="glyphicon glyphicon-heart favo <?php echo $favoClass; ?>" url="<?php echo $this->Url->build('/favo'); ?>" id="<?php echo $value['id'].'favo'; ?>"></span>
+              <?php echo $value['favo']; ?>
             </p>
           </div>
         </div>
