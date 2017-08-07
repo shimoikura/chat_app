@@ -45,12 +45,13 @@
 <?php foreach ($contents as $value) { ?>
       <div class="content-box" style="display:table; width:100%; margin-bottom:5px; border:1px solid; border-radius:3px; background-color:#efefef;">
         <div class="user-img-box" style="display:table-cell; width:10%; height:100%; float:left;">
-          <?php echo $this->Html->image($value['userImg']); ?>
+          <?php $mypage_link = $this->Html->image($value['userImg']); ?>
+          <?php echo $this->Html->link($mypage_link,['controller'=>'Homes','action'=>"mypost",$value['userId']],['escape'=>false]); ?>
         </div>
         <div class="content-box-right" style="display:table-cell; width:380px; float:left;">
           <div class="profile-box" style="width:100%; height:30px;">
             <div class="username-box" style="float:left;">
-              <p style="font-size:20px; font-weight:bold; margin:0; float:left;"><?php echo $value['username']; ?></p>
+              <p style="font-size:20px; font-weight:bold; margin:0; float:left;"><?php echo $this->Html->link($value['username'],['controller'=>'Homes','action'=>"mypost",$value['userId']]); ?></p>
               <p style="color:#dcdcdc; float:left; margin-left:10px; margin-top:5px;"><?php echo $value['created']; ?></p>
             </div>
           </div>

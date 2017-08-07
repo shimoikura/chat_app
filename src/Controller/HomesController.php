@@ -21,10 +21,10 @@ class HomesController extends AppController
     }
     // username取得
     $this->loadModel("Users");
-    $query = $this->Users->find()
+    $username = $this->Users->find()
                     ->select('username')
-                    ->where(['id'=>$userid]);
-    $username = $query->toArray();
+                    ->where(['id'=>$userid])
+                    ->toArray();
     $username = $username[0]['username'];
     $this->request->session()->write('username',$username);
 
@@ -33,15 +33,13 @@ class HomesController extends AppController
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     $this->loadModel('Contents');
     $contents = $this->Contents->find('all')->toArray();
-
-
     $allcontents = array();
     foreach ($contents as $value) {
-      $query = $this->Users->find()->where(['id'=>$value['userId']]);
-      $data = $query->toArray();
+      $data = $this->Users->find()->where(['id'=>$value['userId']])->toArray();
       foreach ($data as $user) {
         array_push($allcontents,array(
           'id' => $value['id'],
+          'userId' => $user['id'],
           'username' => $user['username'],
           'userImg' => $user['userImg'],
           'body' => $value['body'],
@@ -52,9 +50,6 @@ class HomesController extends AppController
         ));
       }
     }
-    //  echo "<pre>";
-    // print_r($contents);
-    // exit;
     rsort($allcontents);
     $this->set('contents',$allcontents);
   }
@@ -64,7 +59,7 @@ class HomesController extends AppController
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Myself Post(マイページ)
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  public function mypost(){
+  public function mypost($id = null){
     $userid = $this->request->session()->read('userid');
     if ($userid == null) {
       return $this->redirect(['controller'=>'Users','action'=>'login']);
@@ -73,11 +68,14 @@ class HomesController extends AppController
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     // USER INFORMATION
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      if (isset($id)) {
+        $userid = $id;
+      }
     $this->loadModel('Users');
-    $query = $this->Users->find()
+    $user = $this->Users->find()
                               ->where(['id'=> $userid])
-                              ->all();
-    $user = $query->toArray();
+                              ->all()
+                              ->toArray();
     $friends = explode(",",$user[0]['friends']); //Friendsのidの配列
     $conditions = array();
     for ($i=0; $i < count($friends)-1; $i++) {
@@ -88,13 +86,28 @@ class HomesController extends AppController
     $fusers = $this->Users->find()->where($conditions)->all();
     $this->set(compact('user','fusers','friends'));
 
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    // Content
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // Load Contenstable and Users to Set contents
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     $this->loadModel('Contents');
-    $query = $this->Contents->find()->where(['userId'=>$userid]);
-    $contents = $query->toArray();
-    $this->set('contents',$contents);
+    $contents = $this->Contents->find()->where(['userId'=>$userid])->toArray();
+    $data = $this->Users->find()->where(['id'=>$userid])->toArray();
+    $allcontents = array();
+    foreach ($contents as $value) {
+      array_push($allcontents,array(
+        'id' => $value['id'],
+        'userId' => $data[0]['id'],
+        'username' => $data[0]['username'],
+        'userImg' => $data[0]['userImg'],
+        'body' => $value['body'],
+        'favo' => $value['favo'],
+        'favoUsers' => $value['favoUsers'],
+        'created' => $value['created'],
+        'postImg' => $value['postImg']
+      ));
+    }
+    rsort($allcontents);
+    $this->set('contents',$allcontents);
   }
 
 
