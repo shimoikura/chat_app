@@ -51,7 +51,7 @@
         <div class="content-box-right" style="display:table-cell; width:380px; float:left;">
           <div class="profile-box" style="width:100%; height:30px;">
             <div class="username-box" style="float:left;">
-              <p style="font-size:20px; font-weight:bold; margin:0; float:left;"><?php echo $this->Html->link($value['username'],['controller'=>'Homes','action'=>"mypost",$value['userId']]); ?></p>
+              <p style="font-size:20px; font-weight:bold; margin:0; float:left;"><?php echo $this->Html->link($value['username'],['controller'=>'Homes','action'=>"mypost",'id'=>$value['userId']]); ?></p>
               <p style="color:#dcdcdc; float:left; margin-left:10px; margin-top:5px;"><?php echo $value['created']; ?></p>
             </div>
           </div>
@@ -81,7 +81,13 @@
               } ?>
               <span class="glyphicon glyphicon-heart favo <?php echo $favoClass; ?>" url="<?php echo $this->Url->build('/favo'); ?>" id="<?php echo $value['id'].'favo'; ?>"></span>
               <?php echo $value['favo']; ?>
+              <span  id="<?php echo $value['id'].'comment'; ?>" class="glyphicon glyphicon-comment comment" style="margin-left:10px;">comment</span>
             </p>
+            <!-- COMMENT BOX -->
+            <div id="<?php echo $value['id'].'comment-box' ?>" class="comment-box" style="display:none;">
+              <input type="text" name="comment" id="<?php echo $value['id'].'text-comment' ?>">
+              <button type="button" name="button" class="btn-comment-submit" id="<?php echo $value['id'].'btn-comment-submit'; ?>" url="<?php echo $this->Url->build('/comment'); ?>">Comment</button>
+            </div>
           </div>
         </div>
 

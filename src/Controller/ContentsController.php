@@ -9,7 +9,7 @@ use Cake\Event\Event;
 class ContentsController extends AppController{
   public function beforeFilter(Event $event){
     parent::beforeFilter($event);
-    $this->Auth->allow(['add','favo']);
+    $this->Auth->allow(['add','favo','comment']);
   }
 
   public function add(){
@@ -78,6 +78,31 @@ class ContentsController extends AppController{
     else {
       echo "bad";
       // return $this->redirect('/');
+    }
+  }
+
+
+  public function comment(){
+    $userid = $this->request->session()->read('userid');
+    if ($this->request->is("ajax")) {
+      $this->loadModel("Comments");
+      $comment = $this->Comments->newEntity();
+      $this->autoRender = false;
+      $contentId = $_POST["id"];
+      $body = $_POST["comment"];
+      $data = [
+        "commenterId" => $userid,
+        "contentId" => $contentId,
+        "comment" => $body
+      ];
+      $comment = $this->Comments->patchEntity($comment,$data);
+      if ($this->Comments->save($comment)) {
+        echo "success";
+      }
+      else {
+        echo "error";
+      }
+      echo "a";
     }
   }
 

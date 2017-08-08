@@ -62,7 +62,7 @@
     <!-- アップロード画像のサイズの変更 -->
 
     <div class="change-imgsize-box">
-      <?php echo $this->Html->image("userImages/Taylor_Swift.jpg",[
+      <?php echo $this->Html->image($user[0]['userImg'],[
                                         'id' => 'user-img-sum',
                                         'class' => 'img-responsive img-circle'
                                       ]); ?>
@@ -85,7 +85,11 @@
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <!-- プロフィール編集ボタン -->
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-    <div class="mypage-btn-box col-md-3">
+    <div class="mypage-btn-box col-md-3"
+      <?php if ($value['status'] == 1) {
+        echo "style = display:none;";
+      } ?>
+      >
       <p id="btn-myupdate" class="btn-mypage btn btn-primary" >Update Profile</p>
       <p id="btn-cancel" class="btn-mypage btn" style="float: left;">Cancel</p>
       <?php echo $this->Form->submit('Save Changes' ,["id"=>"btn-save","class" => "btn-mypage btn btn-primary"]); ?>

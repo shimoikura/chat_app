@@ -40,6 +40,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->script(array('message.js')) ?>
     <?= $this->Html->script(array('userImg.js')) ?>
     <?= $this->Html->script(array('cropper.js')) ?>
+    <?= $this->Html->script(array('comment.js')) ?>
 
 
 
@@ -67,7 +68,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <li class="dropdown" role="menu">
               <a href="" class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'><span class="glyphicon glyphicon-user"></span> <span><?php echo $username; ?></span><span class='caret'></span></a>
               <ul class='dropdown-menu' role='menu'>
-                <li><a href="<?php echo $this->Url->build('/mypage'); ?>">MY PAGE</a></li>
+                <li><?php echo  $this->Html->link('My page',['controller'=>'Homes','action'=>'mypost']) ?></li>
                 <li><a id="logout-link" href=" <?php echo $this->Url->build('/logout',true); ?> ">LOGOUT</a></li>
                 <li><a href=" <?php echo $this->Url->build('/login',true); ?> ">Login as another account</a></li>
               </ul>

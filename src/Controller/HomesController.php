@@ -59,7 +59,7 @@ class HomesController extends AppController
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Myself Post(マイページ)
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  public function mypost($id = null){
+  public function mypost(){
     $userid = $this->request->session()->read('userid');
     if ($userid == null) {
       return $this->redirect(['controller'=>'Users','action'=>'login']);
@@ -68,9 +68,19 @@ class HomesController extends AppController
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     // USER INFORMATION
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-      if (isset($id)) {
+    if (isset($_GET['id'])) {
+        $id=$_GET['id'];
+        if ($userid == $id) {
+          $status = 0; //myselfpages
+        }
+        else {
+          $status = 1; //otherspages
+        }
         $userid = $id;
-      }
+    }
+    else {
+      $status = 0;
+    }
     $this->loadModel('Users');
     $user = $this->Users->find()
                               ->where(['id'=> $userid])
@@ -103,7 +113,8 @@ class HomesController extends AppController
         'favo' => $value['favo'],
         'favoUsers' => $value['favoUsers'],
         'created' => $value['created'],
-        'postImg' => $value['postImg']
+        'postImg' => $value['postImg'],
+        'status' => $status //mypage(0) or otherspage(1)
       ));
     }
     rsort($allcontents);
