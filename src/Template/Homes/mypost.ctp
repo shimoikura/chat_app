@@ -31,6 +31,7 @@
             <?php echo $this->Html->image($user[0]['userImg'],['width'=>'200px', 'id'=>'imgUpload']); ?>
             <input type="file" style="display:none;" id="imgg" url="<?php echo $this->Url->build("/moveimg"); ?>">
             <?php echo $this->Form->input("userImg",['id' => "uImgname","type"=>"hidden"]); ?>
+            <?php echo $this->Form->input("nochooseImg",["type" => "hidden","value" => $user[0]['userImg'] ]); ?>
           </div>
           <tr>
             <td rowspan="2"><h3 style="margin:0;">

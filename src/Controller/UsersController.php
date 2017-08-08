@@ -242,7 +242,9 @@ class UsersController extends AppController{
     $this->autoRender = false;
     $userid = $this->request->session()->read('userid');
     $data = $this->request->getData();
-    $image_name = time()."_".$image_name;
+    if ($data['userImg'] == null) {
+      $data['userImg'] = str_replace('userImages/', '' ,$data['nochooseImg']);
+    }
     $this->Users->query()->update()
                                 ->set([
                                     'username' => $data['username'],

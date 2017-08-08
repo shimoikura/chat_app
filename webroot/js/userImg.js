@@ -17,7 +17,6 @@
         $(".change-imgsize-box").hide();
         $('#modal-overlay1').remove();
         $(".userInfo-box-after,#btn-cancel,#btn-save").show();
-        alert(response);
       }).fail(function(){
         alert("failed");
       });
