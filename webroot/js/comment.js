@@ -10,10 +10,9 @@ $(document).ready(function(){
   $(".btn-comment-submit").click(function(){
     var url = $(this).attr('url');
     var id = $(this).attr("id");
-    alert(url);
     var contentId = id.replace(/btn-comment-submit/g,'');
     var comment = $("#" + contentId + "text-comment").val();
-    $(".comment-box").append("<div><p>" + comment + "</p></div>");
+    $("#" + contentId + "comment-box").append("<div><p>" + comment + "</p></div>");
     $.ajax({
       url:url,
       type:'post',
@@ -23,8 +22,7 @@ $(document).ready(function(){
         comment:comment
       },
     }).done(function(response){
-      alert(response);
-    }).fail(function(){
+    }).fail(function(response){
       alert("failed");
     });
   });

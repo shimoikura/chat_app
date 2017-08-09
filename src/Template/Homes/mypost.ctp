@@ -48,7 +48,7 @@
       </div>
 
       <!-- Friends LIST BOX -->
-      <div class="friends-list-box" style="display:none;">
+      <div class="friends-list-box">
         <p>FRIENDS LIST</p>
         <?php foreach ($fusers as $fuser) { ?>
           <div class="fuser-box">
@@ -86,11 +86,7 @@
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
     <!-- プロフィール編集ボタン -->
     <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-    <div class="mypage-btn-box col-md-3"
-      <?php if ($value['status'] == 1) {
-        echo "style = display:none;";
-      } ?>
-      >
+    <div class="mypage-btn-box col-md-3"<?php if ($contents['status'] == 1)echo "style = display:none;";?> >
       <p id="btn-myupdate" class="btn-mypage btn btn-primary" >Update Profile</p>
       <p id="btn-cancel" class="btn-mypage btn" style="float: left;">Cancel</p>
       <?php echo $this->Form->submit('Save Changes' ,["id"=>"btn-save","class" => "btn-mypage btn btn-primary"]); ?>

@@ -236,6 +236,11 @@ table.mypage-user td{
 	height:120%;
 	background-color:rgba(0,0,0,0.75);
 }
+/*------------- Friends Requestbox---------------------*/
+.friends-list-box{
+  display: none;
+
+}
 /*----------------ユーザーページ UserImage--------------*/
 .userImg-box img {
     width: 200px;

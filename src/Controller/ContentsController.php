@@ -81,31 +81,6 @@ class ContentsController extends AppController{
     }
   }
 
-
-  public function comment(){
-    $userid = $this->request->session()->read('userid');
-    if ($this->request->is("ajax")) {
-      $this->loadModel("Comments");
-      $comment = $this->Comments->newEntity();
-      $this->autoRender = false;
-      $contentId = $_POST["id"];
-      $body = $_POST["comment"];
-      $data = [
-        "commenterId" => $userid,
-        "contentId" => $contentId,
-        "comment" => $body
-      ];
-      $comment = $this->Comments->patchEntity($comment,$data);
-      if ($this->Comments->save($comment)) {
-        echo "success";
-      }
-      else {
-        echo "error";
-      }
-      echo "a";
-    }
-  }
-
 }
 
  ?>
